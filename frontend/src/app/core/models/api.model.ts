@@ -1,6 +1,12 @@
-/** Contrato mínimo que toda entidade CRUD precisa ter para usar o BaseService. */
+/**
+ * Contrato base de toda entidade CRUD: id + os campos de domínio comuns
+ * (name obrigatório, description opcional). Espelha o BaseEntity do backend
+ * (common/entities/base.entity.ts).
+ */
 export interface BaseEntity {
   id: string | number
+  name: string
+  description?: string
 }
 
 /** Formato de resposta paginada, comum em listagens de API REST. */

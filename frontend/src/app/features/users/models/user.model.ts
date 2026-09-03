@@ -1,7 +1,7 @@
 import type { BaseEntity } from '@app/core/models/api.model'
 
+// `name` e `description` vêm de BaseEntity.
 export interface User extends BaseEntity {
-  name: string
   email: string
   role: 'admin' | 'editor' | 'viewer'
   active: boolean

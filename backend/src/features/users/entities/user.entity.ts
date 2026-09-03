@@ -9,12 +9,12 @@ export type UserRole = 'admin' | 'editor' | 'viewer'
  * Mesma entidade "User" que as 3 skills de frontend já modelam em
  * features/users/types/user.ts (name, email, role, active) — o
  * contrato de API fica simétrico dos dois lados.
+ *
+ * `name` (e `description`) vêm de BaseEntity; aqui só ficam os campos
+ * próprios de User.
  */
 @Entity('users')
 export class User extends BaseEntity {
-  @Column()
-  name!: string
-
   @Index({ unique: true })
   @Column()
   email!: string
