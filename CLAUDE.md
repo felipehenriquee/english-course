@@ -8,8 +8,18 @@ Two independent apps in one repo:
 | `backend/`  | NestJS 10 + TypeORM (PostgreSQL), JWT auth, feature-based, Swagger at `/api/docs` |
 
 Each app has its own `package.json`, toolchain, `node_modules`, lint/format config,
-Dockerfile and `docker-compose.yml`. Run `npm install` inside each app separately.
-The root `package.json` only carries the shared Husky hook.
+Dockerfile and `docker-compose.yml`. Run `npm install` inside each app separately
+(or `npm run install:all` from the root).
+
+The root `package.json` carries the shared Husky hook plus dev-orchestration
+scripts (no npm workspaces):
+
+| Script | What it does |
+|--------|--------------|
+| `npm run dev` | runs backend (`start:dev`) + frontend (`ng serve`) together via `concurrently` |
+| `npm run dev:back` / `npm run dev:front` | run one side only |
+| `npm run db:up` / `npm run db:down` | start / stop the MySQL container (`backend/docker-compose.yml`) |
+| `npm run install:all` | `npm install` at the root + both apps |
 
 ## Commit message convention
 
