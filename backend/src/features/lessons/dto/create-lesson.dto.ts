@@ -11,6 +11,11 @@ export class CreateLessonDto {
   @IsString()
   description?: string
 
+  @ApiPropertyOptional({ description: 'Conteúdo completo da aula em HTML (editor WYSIWYG)' })
+  @IsOptional()
+  @IsString()
+  content?: string
+
   @ApiProperty({ format: 'uuid', description: 'Unidade à qual a aula pertence' })
   @IsUUID()
   unitId!: string

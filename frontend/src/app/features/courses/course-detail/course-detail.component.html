@@ -90,13 +90,6 @@
   }
 </div>
 
-<app-details-modal
-  [open]="lessonModalOpen()"
-  [title]="selectedLesson()?.name ?? ('lessons.details.title' | transloco)"
-  [fields]="lessonFields"
-  (closed)="lessonModalOpen.set(false)"
-/>
-
 <app-general-modal
   [open]="formMode() !== null"
   [title]="formTitle"

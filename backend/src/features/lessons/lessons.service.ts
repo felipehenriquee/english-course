@@ -41,6 +41,9 @@ export class LessonsService extends BaseService<Lesson> {
 
     const [data, total] = await this.repository.findAndCount({
       where,
+      // `content` (HTML da aula) pode ser grande — fica de fora da listagem,
+      // só é devolvido pelo getById (herdado do BaseService).
+      select: ['id', 'name', 'description', 'unitId', 'createdAt', 'updatedAt'],
       skip: (page - 1) * perPage,
       take: perPage,
       order: query.sort ? { [query.sort]: query.order ?? 'ASC' } : undefined,

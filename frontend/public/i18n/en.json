@@ -110,8 +110,11 @@
     "add": "Add lesson",
     "count": "{{ count }} lessons",
     "empty": "No lessons yet.",
+    "editContent": "Edit content",
+    "contentEmpty": "This lesson has no content yet.",
+    "contentPlaceholder": "Write the lesson content…",
     "details": {
-      "title": "Lesson details",
+      "title": "Lesson",
       "name": "Name",
       "description": "Description"
     }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, inject, signal } from '@angular/core'
-import { RouterLink } from '@angular/router'
+import { Router, RouterLink } from '@angular/router'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { firstValueFrom } from 'rxjs'
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco'
@@ -10,10 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 
 import { ButtonComponent } from '@app/shared/components/button/button.component'
-import {
-  DetailField,
-  DetailsModalComponent,
-} from '@app/shared/components/details-modal/details-modal.component'
+import { DetailField } from '@app/shared/components/details-modal/details-modal.component'
 import { GeneralModalComponent } from '@app/shared/components/general-modal/general-modal.component'
 import { Icon } from '@app/shared/icon.enum'
 import { CoursesStore } from '@app/features/courses/state/courses.store'
@@ -21,15 +18,14 @@ import { UnitService } from '@app/features/units/services/unit.service'
 import { LessonService } from '@app/features/lessons/services/lesson.service'
 import type { Course, CourseUnitRef } from '@app/features/courses/models/course.model'
 import type { Unit, UnitLessonRef } from '@app/features/units/models/unit.model'
-import type { Lesson } from '@app/features/lessons/models/lesson.model'
 
 type FormMode = 'unit' | 'lesson'
 
 /**
  * Tela de detalhe do curso (rota `/courses/:id`). Mostra os dados do curso e
  * as unidades como accordions: o header traz o nome e o nº de aulas; ao
- * abrir, busca a unidade por id e lista as aulas (clicar numa aula abre o
- * modal com os dados completos dela).
+ * abrir, busca a unidade por id e lista as aulas (clicar numa aula abre a
+ * página da aula, `/courses/:id/lessons/:lessonId`).
  *
  * Um único GeneralModal (com formulário nome/descrição) atende tanto
  * "adicionar módulo" quanto "adicionar aula" (ver `formMode`).
@@ -47,13 +43,13 @@ type FormMode = 'unit' | 'lesson'
     MatInputModule,
     TranslocoPipe,
     ButtonComponent,
-    DetailsModalComponent,
     GeneralModalComponent,
   ],
   templateUrl: './course-detail.component.html',
 })
 export class CourseDetailComponent implements OnInit {
   private readonly fb = inject(FormBuilder)
+  private readonly router = inject(Router)
   private readonly coursesStore = inject(CoursesStore)
   private readonly unitService = inject(UnitService)
   private readonly lessonService = inject(LessonService)
@@ -71,9 +67,6 @@ export class CourseDetailComponent implements OnInit {
   /** Unidade completa (descrição + aulas) por id — cache dos accordions abertos. */
   readonly unitDetails = signal<Record<string, Unit>>({})
   readonly loadingUnit = signal<string | null>(null)
-
-  readonly selectedLesson = signal<Lesson | null>(null)
-  readonly lessonModalOpen = signal(false)
 
   // --- formulário de criação (módulo / aula) ---
   readonly formMode = signal<FormMode | null>(null)
@@ -109,15 +102,6 @@ export class CourseDetailComponent implements OnInit {
     ]
   }
 
-  get lessonFields(): DetailField[] {
-    const lesson = this.selectedLesson()
-    if (!lesson) return []
-    return [
-      { label: this.transloco.translate('lessons.details.name'), value: lesson.name },
-      { label: this.transloco.translate('lessons.details.description'), value: lesson.description },
-    ]
-  }
-
   get formTitle(): string {
     return this.transloco.translate(this.formMode() === 'lesson' ? 'lessons.add' : 'units.add')
   }
@@ -139,14 +123,9 @@ export class CourseDetailComponent implements OnInit {
     await this.loadUnit(unitId)
   }
 
-  async openLesson(ref: UnitLessonRef): Promise<void> {
-    this.selectedLesson.set(null)
-    this.lessonModalOpen.set(true)
-    try {
-      this.selectedLesson.set(await firstValueFrom(this.lessonService.getById(ref.id)))
-    } catch {
-      this.lessonModalOpen.set(false)
-    }
+  /** Abre a página da aula (conteúdo completo + edição WYSIWYG). */
+  openLesson(ref: UnitLessonRef): void {
+    void this.router.navigate(['/courses', this.id, 'lessons', ref.id])
   }
 
   openAddUnit(): void {

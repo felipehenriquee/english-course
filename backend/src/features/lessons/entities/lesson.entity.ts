@@ -16,4 +16,12 @@ export class Lesson extends BaseEntity {
 
   @Column({ name: 'unit_id', type: 'varchar', length: 36 })
   unitId!: string
+
+  /**
+   * Conteúdo completo da aula em HTML, gerado pelo editor WYSIWYG (Quill)
+   * do frontend e exibido na página da aula. Não vem nas listagens
+   * (`LessonsService.getAll` seleciona só os campos leves) — só no getById.
+   */
+  @Column({ type: 'text', nullable: true })
+  content!: string | null
 }

@@ -110,8 +110,11 @@
     "add": "Adicionar aula",
     "count": "{{ count }} aulas",
     "empty": "Nenhuma aula cadastrada.",
+    "editContent": "Editar conteúdo",
+    "contentEmpty": "Esta aula ainda não tem conteúdo.",
+    "contentPlaceholder": "Escreva o conteúdo da aula…",
     "details": {
-      "title": "Detalhes da aula",
+      "title": "Aula",
       "name": "Nome",
       "description": "Descrição"
     }

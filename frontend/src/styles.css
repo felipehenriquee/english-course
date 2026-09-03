@@ -5,6 +5,9 @@
 /* Estrutura do CDK Overlay (backdrop, container, posicionamento) — usada pelo
    MatDialog e pelo GeneralModal. Não vem no tema pré-compilado do Material. */
 @import '@angular/cdk/overlay-prebuilt.css';
+/* Estilos do Jodit — editor WYSIWYG usado no app-rich-editor (página da
+   aula). O container de leitura reaproveita a classe `.jodit-wysiwyg`. */
+@import 'jodit/es2021/jodit.min.css';
 
 @tailwind base;
 @tailwind components;
