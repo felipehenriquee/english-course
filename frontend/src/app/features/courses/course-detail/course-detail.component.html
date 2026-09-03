@@ -1,0 +1,51 @@
+<div class="p-4 md:p-6">
+  <div class="mb-4 flex items-center gap-2">
+    <a mat-icon-button routerLink="/courses" [title]="'common.back' | transloco">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <h1 class="text-xl font-semibold">
+      {{ course()?.name ?? ('courses.details.title' | transloco) }}
+    </h1>
+  </div>
+
+  @if (loading()) {
+    <p class="text-sm text-slate-500">…</p>
+  } @else if (error()) {
+    <div class="max-w-2xl rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{{ error() }}</div>
+  } @else if (course()) {
+    <div class="max-w-2xl rounded-lg border border-slate-200 bg-white p-4 md:p-6">
+      <dl class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-[10rem_1fr]">
+        @for (field of detailFields; track field.label) {
+          <dt class="text-sm font-medium text-slate-500">{{ field.label }}</dt>
+          <dd class="text-sm text-slate-800">{{ format(field.value) }}</dd>
+        }
+      </dl>
+    </div>
+
+    <section class="mt-6 max-w-2xl">
+      <h2 class="mb-3 text-lg font-semibold">{{ 'courses.columns.units' | transloco }}</h2>
+      <div class="rounded-lg border border-slate-200 bg-white">
+        @if (units.length > 0) {
+          <ul class="m-0 list-none divide-y divide-slate-100 p-0">
+            @for (unit of units; track unit.id) {
+              <li class="px-4 py-2">
+                <app-button variant="text" color="primary" (click)="openUnit(unit)">
+                  {{ unit.name }}
+                </app-button>
+              </li>
+            }
+          </ul>
+        } @else {
+          <p class="p-4 text-center text-sm text-slate-500">{{ 'units.empty' | transloco }}</p>
+        }
+      </div>
+    </section>
+  }
+</div>
+
+<app-details-modal
+  [open]="unitModalOpen()"
+  [title]="selectedUnit()?.name ?? ('units.details.title' | transloco)"
+  [fields]="unitFields"
+  (closed)="unitModalOpen.set(false)"
+/>

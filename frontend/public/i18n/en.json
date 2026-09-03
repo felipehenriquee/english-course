@@ -75,12 +75,14 @@
     "search": "Search courses",
     "empty": "No courses found.",
     "columns": {
-      "name": "Name"
+      "name": "Name",
+      "units": "Units"
     },
     "details": {
       "title": "Course details",
       "name": "Name",
-      "description": "Description"
+      "description": "Description",
+      "units": "Units"
     },
     "form": {
       "newTitle": "New course",
@@ -90,6 +92,14 @@
       "nameRequired": "Enter the course name.",
       "submitNew": "Create",
       "submitEdit": "Save"
+    }
+  },
+  "units": {
+    "empty": "No units yet.",
+    "details": {
+      "title": "Unit details",
+      "name": "Name",
+      "description": "Description"
     }
   }
 }

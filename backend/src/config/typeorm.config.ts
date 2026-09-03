@@ -2,6 +2,7 @@ import { ConfigService } from '@nestjs/config'
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 
 import { Course } from '@/features/courses/entities/course.entity'
+import { Unit } from '@/features/units/entities/unit.entity'
 import { User } from '@/features/users/entities/user.entity'
 
 /**
@@ -20,7 +21,7 @@ import { User } from '@/features/users/entities/user.entity'
 export function buildTypeOrmConfig(config: ConfigService): TypeOrmModuleOptions {
   const dbType = config.get<string>('DB_TYPE', 'postgres')
   const synchronize = config.get<string>('DB_SYNCHRONIZE', 'false') === 'true'
-  const entities = [User, Course]
+  const entities = [User, Course, Unit]
 
   if (dbType === 'sqlite') {
     return {

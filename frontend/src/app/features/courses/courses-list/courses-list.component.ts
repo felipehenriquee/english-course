@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core'
+import { Component, OnInit, inject } from '@angular/core'
 import { Router } from '@angular/router'
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco'
 
@@ -6,17 +6,13 @@ import {
   ResourceColumn,
   ResourceListComponent,
 } from '@app/shared/components/resource-list/resource-list.component'
-import {
-  DetailField,
-  DetailsModalComponent,
-} from '@app/shared/components/details-modal/details-modal.component'
 import { CoursesStore } from '@app/features/courses/state/courses.store'
 import type { Course } from '@app/features/courses/models/course.model'
 
 @Component({
   selector: 'app-courses-list',
   standalone: true,
-  imports: [ResourceListComponent, DetailsModalComponent, TranslocoPipe],
+  imports: [ResourceListComponent, TranslocoPipe],
   templateUrl: './courses-list.component.html',
 })
 export class CoursesListComponent implements OnInit {
@@ -24,12 +20,10 @@ export class CoursesListComponent implements OnInit {
   private readonly transloco = inject(TranslocoService)
   readonly coursesStore = inject(CoursesStore)
 
-  readonly selected = signal<Course | null>(null)
-  readonly detailsOpen = signal(false)
-
   get columns(): ResourceColumn<Course>[] {
     return [
       { key: 'name', label: this.transloco.translate('courses.columns.name'), clickable: true },
+      { key: 'unitsCount', label: this.transloco.translate('courses.columns.units') },
     ]
   }
 
@@ -37,18 +31,8 @@ export class CoursesListComponent implements OnInit {
     this.coursesStore.fetchAll()
   }
 
-  get detailFields(): DetailField[] {
-    const course = this.selected()
-    if (!course) return []
-    return [
-      { label: this.transloco.translate('courses.details.name'), value: course.name },
-      { label: this.transloco.translate('courses.details.description'), value: course.description },
-    ]
-  }
-
-  openDetails(course: Course): void {
-    this.selected.set(course)
-    this.detailsOpen.set(true)
+  openCourse(course: Course): void {
+    this.router.navigate(['/courses', course.id])
   }
 
   editCourse(course: Course): void {

@@ -9,6 +9,7 @@ import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard'
 import { AuthModule } from '@/features/auth/auth.module'
 import { UsersModule } from '@/features/users/users.module'
 import { CoursesModule } from '@/features/courses/courses.module'
+import { UnitsModule } from '@/features/units/units.module'
 import { HealthModule } from '@/features/health/health.module'
 
 @Module({
@@ -39,6 +40,7 @@ import { HealthModule } from '@/features/health/health.module'
     AuthModule,
     UsersModule,
     CoursesModule,
+    UnitsModule,
     HealthModule,
   ],
   providers: [

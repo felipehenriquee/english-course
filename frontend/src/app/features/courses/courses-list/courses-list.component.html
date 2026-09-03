@@ -9,14 +9,7 @@
   [searchPlaceholder]="'courses.search' | transloco"
   [emptyMessage]="'courses.empty' | transloco"
   (searchChange)="applySearch($event)"
-  (rowClick)="openDetails($event)"
+  (rowClick)="openCourse($event)"
   (edit)="editCourse($event)"
   (remove)="removeCourse($event)"
-/>
-
-<app-details-modal
-  [open]="detailsOpen()"
-  [title]="selected()?.name ?? ('courses.details.title' | transloco)"
-  [fields]="detailFields"
-  (closed)="detailsOpen.set(false)"
 />

@@ -50,6 +50,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'courses/:id',
+        loadComponent: () =>
+          import('@app/features/courses/course-detail/course-detail.component').then(
+            (m) => m.CourseDetailComponent,
+          ),
+      },
+      {
         path: 'courses/:id/edit',
         loadComponent: () =>
           import('@app/features/courses/course-form/course-form.component').then(

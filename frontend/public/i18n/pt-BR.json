@@ -75,12 +75,14 @@
     "search": "Pesquisar cursos",
     "empty": "Nenhum curso encontrado.",
     "columns": {
-      "name": "Nome"
+      "name": "Nome",
+      "units": "Módulos"
     },
     "details": {
       "title": "Detalhes do curso",
       "name": "Nome",
-      "description": "Descrição"
+      "description": "Descrição",
+      "units": "Módulos"
     },
     "form": {
       "newTitle": "Novo curso",
@@ -90,6 +92,14 @@
       "nameRequired": "Informe o nome do curso.",
       "submitNew": "Cadastrar",
       "submitEdit": "Salvar"
+    }
+  },
+  "units": {
+    "empty": "Nenhum módulo cadastrado.",
+    "details": {
+      "title": "Detalhes do módulo",
+      "name": "Nome",
+      "description": "Descrição"
     }
   }
 }
