@@ -11,6 +11,9 @@ import { MatInputModule } from '@angular/material/input'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { TranslocoPipe } from '@jsverse/transloco'
 
+import { ButtonComponent } from '@app/shared/components/button/button.component'
+import { Icon } from '@app/shared/icon.enum'
+
 export interface ResourceColumn<T> {
   /** Chave do campo no objeto da linha. */
   key: Extract<keyof T, string>
@@ -44,6 +47,7 @@ const ACTIONS_COLUMN = '__actions__'
     MatInputModule,
     MatProgressBarModule,
     TranslocoPipe,
+    ButtonComponent,
   ],
   templateUrl: './resource-list.component.html',
 })
@@ -73,6 +77,7 @@ export class ResourceListComponent<T extends { id: string | number }> implements
 
   readonly searchControl = new FormControl('', { nonNullable: true })
   readonly actionsColumn = ACTIONS_COLUMN
+  readonly Icon = Icon
 
   displayedColumns: string[] = []
 

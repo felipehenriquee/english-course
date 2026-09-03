@@ -1,0 +1,21 @@
+<button
+  [attr.type]="type"
+  [disabled]="disabled"
+  [class]="computedClass"
+  [style.color]="textColor || null"
+  [attr.aria-label]="ariaLabel"
+  [matTooltip]="tooltip ?? ''"
+  [matTooltipDisabled]="!tooltip"
+>
+  @if (iconOnly) {
+    <mat-icon [class]="glyphClass">{{ icon }}</mat-icon>
+  } @else {
+    @if (icon && iconPosition === 'left') {
+      <mat-icon [class]="glyphClass">{{ icon }}</mat-icon>
+    }
+    <ng-content />
+    @if (icon && iconPosition === 'right') {
+      <mat-icon [class]="glyphClass">{{ icon }}</mat-icon>
+    }
+  }
+</button>

@@ -2,6 +2,9 @@
    Material ou por um tema customizado (M3) gerado com `ng generate @angular/material:theme-color`.
    O @import precisa vir antes das diretivas @tailwind (regra "@import first" do CSS). */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
+/* Estrutura do CDK Overlay (backdrop, container, posicionamento) — usada pelo
+   MatDialog e pelo GeneralModal. Não vem no tema pré-compilado do Material. */
+@import '@angular/cdk/overlay-prebuilt.css';
 
 @tailwind base;
 @tailwind components;
