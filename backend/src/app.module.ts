@@ -8,6 +8,7 @@ import { buildTypeOrmConfig } from '@/config/typeorm.config'
 import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard'
 import { AuthModule } from '@/features/auth/auth.module'
 import { UsersModule } from '@/features/users/users.module'
+import { CoursesModule } from '@/features/courses/courses.module'
 import { HealthModule } from '@/features/health/health.module'
 
 @Module({
@@ -37,6 +38,7 @@ import { HealthModule } from '@/features/health/health.module'
     // Nova feature? Crie a pasta em src/features/<feature>/ e importe aqui.
     AuthModule,
     UsersModule,
+    CoursesModule,
     HealthModule,
   ],
   providers: [
