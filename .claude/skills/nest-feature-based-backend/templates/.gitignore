@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+*.local
+.env
+.env.*.local
+data/*.sqlite
+*.tsbuildinfo
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json

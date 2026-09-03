@@ -1,0 +1,2 @@
+Coloque aqui os assets estáticos (favicon.ico, imagens, fonts locais).
+Servidos diretamente na raiz do build, conforme `angular.json` (assets -> input: "public").

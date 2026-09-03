@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos globais do projeto podem entrar aqui.
+   Prefira utilitários do Tailwind (layout/espaçamento) e
+   componentes do Vuetify (UI) antes de criar CSS customizado. */
+
+html,
+body,
+#app {
+  height: 100%;
+}

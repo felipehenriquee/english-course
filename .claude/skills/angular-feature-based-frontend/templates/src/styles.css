@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tema do Angular Material. Troque "indigo-pink" por outro tema pronto do
+   Material ou por um tema customizado (M3) gerado com `ng generate @angular/material:theme-color`. */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}

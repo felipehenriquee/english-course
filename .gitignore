@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+.angular/cache/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Test / coverage
+coverage/
+
+# Logs
+*.log
+
+# Editor / OS
+.DS_Store
+*.tsbuildinfo
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json

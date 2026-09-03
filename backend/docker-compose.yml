@@ -1,0 +1,40 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: backend:latest
+    container_name: backend-api
+    env_file: .env
+    environment:
+      # No compose o host do banco é o nome do serviço, não localhost
+      DB_HOST: db
+    ports:
+      - '3000:3000'
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Serviço de banco para DB_TYPE=postgres (default desta skill).
+  # Trocando para MySQL ou SQLite, ajuste/remova este serviço (ver SKILL.md, Passo 0).
+  db:
+    image: postgres:16-alpine
+    container_name: backend-db
+    environment:
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_DATABASE:-backend}
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME:-postgres}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  db-data:
