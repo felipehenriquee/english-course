@@ -1,0 +1,22 @@
+# Enforce commit message format:  [<scope>] <type>: <task name>   (English)
+#   scope: front | back | front/back | repo
+#   type:  feat | fix | ref | refactor | chore | docs | test | build | ci | perf | style
+first_line="$(head -n1 "$1")"
+
+# Exempt auto-generated / conventional non-feature messages.
+case "$first_line" in
+  Merge\ * | Revert\ * | fixup!\ * | squash!\ * | Reapply\ *) exit 0 ;;
+esac
+
+pattern='^\[(front|back|front/back|repo)\] (feat|fix|ref|refactor|chore|docs|test|build|ci|perf|style)(\([a-z0-9._/-]+\))?: .+'
+
+if ! printf '%s' "$first_line" | grep -qE "$pattern"; then
+  echo "✗ Invalid commit message:"
+  echo "    $first_line"
+  echo
+  echo "  Expected:  [<scope>] <type>: <task name>   (in English)"
+  echo "  scope:     front | back | front/back | repo"
+  echo "  type:      feat | fix | ref | refactor | chore | docs | test | build | ci | perf | style"
+  echo "  example:   [back] feat: add refresh-token endpoint"
+  exit 1
+fi

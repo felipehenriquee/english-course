@@ -1,0 +1,12 @@
+# Monorepo pre-commit: run each package's lint-staged only when it has staged files.
+staged="$(git diff --cached --name-only --diff-filter=ACMR)"
+
+if printf '%s\n' "$staged" | grep -q '^frontend/'; then
+  echo "husky › lint-staged (frontend)"
+  (cd frontend && npx --no-install lint-staged) || exit 1
+fi
+
+if printf '%s\n' "$staged" | grep -q '^backend/'; then
+  echo "husky › lint-staged (backend)"
+  (cd backend && npx --no-install lint-staged) || exit 1
+fi

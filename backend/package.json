@@ -19,8 +19,7 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "npm run typeorm -- migration:generate -d src/config/typeorm.datasource.ts",
     "migration:run": "npm run typeorm -- migration:run -d src/config/typeorm.datasource.ts",
-    "migration:revert": "npm run typeorm -- migration:revert -d src/config/typeorm.datasource.ts",
-    "prepare": "husky"
+    "migration:revert": "npm run typeorm -- migration:revert -d src/config/typeorm.datasource.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.15",
@@ -61,7 +60,6 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.14.0",
-    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "lint-staged": "^15.3.0",
     "prettier": "^3.4.2",

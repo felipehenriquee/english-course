@@ -9,8 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch=false",
     "lint": "ng lint",
-    "format": "prettier --write \"src/**/*.{ts,html,css}\"",
-    "prepare": "husky"
+    "format": "prettier --write \"src/**/*.{ts,html,css}\""
   },
   "private": true,
   "dependencies": {
@@ -42,7 +41,6 @@
     "@typescript-eslint/parser": "^8.19.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.17.0",
-    "husky": "^9.1.7",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
