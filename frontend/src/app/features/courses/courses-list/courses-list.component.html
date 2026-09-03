@@ -1,0 +1,22 @@
+<app-resource-list
+  title="Cursos"
+  [columns]="columns"
+  [rows]="coursesStore.items()"
+  [loading]="coursesStore.loading()"
+  [error]="coursesStore.error()"
+  addLabel="Adicionar curso"
+  addRoute="/courses/new"
+  searchPlaceholder="Pesquisar cursos"
+  emptyMessage="Nenhum curso encontrado."
+  (searchChange)="applySearch($event)"
+  (rowClick)="openDetails($event)"
+  (edit)="editCourse($event)"
+  (remove)="removeCourse($event)"
+/>
+
+<app-details-modal
+  [open]="detailsOpen()"
+  [title]="selected()?.name ?? 'Detalhes do curso'"
+  [fields]="detailFields"
+  (closed)="detailsOpen.set(false)"
+/>

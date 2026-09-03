@@ -35,6 +35,27 @@ export const routes: Routes = [
             (m) => m.UsersListComponent,
           ),
       },
+      {
+        path: 'courses',
+        loadComponent: () =>
+          import('@app/features/courses/courses-list/courses-list.component').then(
+            (m) => m.CoursesListComponent,
+          ),
+      },
+      {
+        path: 'courses/new',
+        loadComponent: () =>
+          import('@app/features/courses/course-form/course-form.component').then(
+            (m) => m.CourseFormComponent,
+          ),
+      },
+      {
+        path: 'courses/:id/edit',
+        loadComponent: () =>
+          import('@app/features/courses/course-form/course-form.component').then(
+            (m) => m.CourseFormComponent,
+          ),
+      },
     ],
   },
   {

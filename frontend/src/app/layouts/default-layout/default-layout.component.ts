@@ -39,6 +39,7 @@ export class DefaultLayoutComponent {
   readonly navItems: NavItem[] = [
     { label: 'Início', icon: 'dashboard', route: '/' },
     { label: 'Usuários', icon: 'group', route: '/users' },
+    { label: 'Cursos', icon: 'school', route: '/courses' },
   ]
 
   async logout(): Promise<void> {

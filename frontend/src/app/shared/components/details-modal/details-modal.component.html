@@ -1,0 +1,14 @@
+<app-general-modal
+  [open]="open"
+  [title]="title"
+  [size]="size"
+  [showFooter]="false"
+  (closed)="closed.emit()"
+>
+  <dl class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-[10rem_1fr]">
+    @for (field of fields; track field.label) {
+      <dt class="text-sm font-medium text-slate-500">{{ field.label }}</dt>
+      <dd class="text-sm text-slate-800">{{ formatValue(field.value) }}</dd>
+    }
+  </dl>
+</app-general-modal>
