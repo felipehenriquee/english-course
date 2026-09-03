@@ -10,6 +10,7 @@ import { AuthModule } from '@/features/auth/auth.module'
 import { UsersModule } from '@/features/users/users.module'
 import { CoursesModule } from '@/features/courses/courses.module'
 import { UnitsModule } from '@/features/units/units.module'
+import { LessonsModule } from '@/features/lessons/lessons.module'
 import { HealthModule } from '@/features/health/health.module'
 
 @Module({
@@ -41,6 +42,7 @@ import { HealthModule } from '@/features/health/health.module'
     UsersModule,
     CoursesModule,
     UnitsModule,
+    LessonsModule,
     HealthModule,
   ],
   providers: [

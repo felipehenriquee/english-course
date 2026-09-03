@@ -9,6 +9,9 @@
     "back": "Back",
     "search": "Search",
     "details": "Details",
+    "name": "Name",
+    "description": "Description",
+    "required": "Required field",
     "empty": "No records found.",
     "logout": "Sign out",
     "confirmDelete": "Delete {{ name }}?"
@@ -95,9 +98,20 @@
     }
   },
   "units": {
+    "add": "Add unit",
     "empty": "No units yet.",
     "details": {
       "title": "Unit details",
+      "name": "Name",
+      "description": "Description"
+    }
+  },
+  "lessons": {
+    "add": "Add lesson",
+    "count": "{{ count }} lessons",
+    "empty": "No lessons yet.",
+    "details": {
+      "title": "Lesson details",
       "name": "Name",
       "description": "Description"
     }

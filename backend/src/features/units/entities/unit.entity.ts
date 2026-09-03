@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
 
 import { BaseEntity } from '@/common/entities/base.entity'
 import { Course } from '@/features/courses/entities/course.entity'
+import { Lesson } from '@/features/lessons/entities/lesson.entity'
 
 /**
  * Unidade de um curso — o "módulo" do domínio, renomeado para `Unit` para
@@ -18,4 +19,10 @@ export class Unit extends BaseEntity {
 
   @Column({ name: 'course_id', type: 'varchar', length: 36 })
   courseId!: string
+
+  @OneToMany(() => Lesson, (lesson) => lesson.unit)
+  lessons!: Lesson[]
+
+  /** Nº de aulas da unidade. Não é coluna — preenchido nos services. */
+  lessonsCount?: number
 }

@@ -60,6 +60,7 @@ export class CoursesService extends BaseService<Course> {
       .createQueryBuilder('course')
       .leftJoin('course.units', 'unit')
       .addSelect(['unit.id', 'unit.name'])
+      .loadRelationCountAndMap('unit.lessonsCount', 'unit.lessons')
       .where('course.id = :id', { id })
       .orderBy('unit.name', 'ASC')
       .getOne()

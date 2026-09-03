@@ -24,28 +24,100 @@
 
     <section class="mt-6 max-w-2xl">
       <h2 class="mb-3 text-lg font-semibold">{{ 'courses.columns.units' | transloco }}</h2>
-      <div class="rounded-lg border border-slate-200 bg-white">
-        @if (units.length > 0) {
-          <ul class="m-0 list-none divide-y divide-slate-100 p-0">
-            @for (unit of units; track unit.id) {
-              <li class="px-4 py-2">
-                <app-button variant="text" color="primary" (click)="openUnit(unit)">
-                  {{ unit.name }}
+
+      @if (units.length > 0) {
+        <mat-accordion class="block">
+          @for (unit of units; track unit.id) {
+            <mat-expansion-panel (opened)="onPanelOpened(unit.id)">
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{ unit.name }}</mat-panel-title>
+                <mat-panel-description>
+                  {{ 'lessons.count' | transloco: { count: unit.lessonsCount } }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              @if (loadingUnit() === unit.id) {
+                <p class="text-sm text-slate-500">…</p>
+              } @else {
+                @if (unitDescription(unit.id); as description) {
+                  <p class="mb-3 text-sm text-slate-600">{{ description }}</p>
+                }
+
+                @if (lessonsOf(unit.id); as lessons) {
+                  @if (lessons.length > 0) {
+                    <ul class="m-0 list-none divide-y divide-slate-100 p-0">
+                      @for (lesson of lessons; track lesson.id) {
+                        <li class="py-1">
+                          <app-button variant="text" color="primary" (click)="openLesson(lesson)">
+                            {{ lesson.name }}
+                          </app-button>
+                        </li>
+                      }
+                    </ul>
+                  } @else {
+                    <p class="text-sm text-slate-500">{{ 'lessons.empty' | transloco }}</p>
+                  }
+                }
+              }
+
+              <div class="mt-2 flex justify-end">
+                <app-button
+                  variant="text"
+                  color="primary"
+                  [icon]="Icon.Add"
+                  (click)="openAddLesson(unit.id)"
+                >
+                  {{ 'lessons.add' | transloco }}
                 </app-button>
-              </li>
-            }
-          </ul>
-        } @else {
-          <p class="p-4 text-center text-sm text-slate-500">{{ 'units.empty' | transloco }}</p>
-        }
+              </div>
+            </mat-expansion-panel>
+          }
+        </mat-accordion>
+      } @else {
+        <div
+          class="rounded-lg border border-slate-200 bg-white p-4 text-center text-sm text-slate-500"
+        >
+          {{ 'units.empty' | transloco }}
+        </div>
+      }
+
+      <div class="mt-2 flex justify-end">
+        <app-button variant="text" color="primary" [icon]="Icon.Add" (click)="openAddUnit()">
+          {{ 'units.add' | transloco }}
+        </app-button>
       </div>
     </section>
   }
 </div>
 
 <app-details-modal
-  [open]="unitModalOpen()"
-  [title]="selectedUnit()?.name ?? ('units.details.title' | transloco)"
-  [fields]="unitFields"
-  (closed)="unitModalOpen.set(false)"
+  [open]="lessonModalOpen()"
+  [title]="selectedLesson()?.name ?? ('lessons.details.title' | transloco)"
+  [fields]="lessonFields"
+  (closed)="lessonModalOpen.set(false)"
 />
+
+<app-general-modal
+  [open]="formMode() !== null"
+  [title]="formTitle"
+  size="sm"
+  [saving]="saving()"
+  (save)="saveForm()"
+  (cancelled)="closeForm()"
+  (closed)="closeForm()"
+>
+  <form [formGroup]="form" class="flex flex-col gap-1">
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'common.name' | transloco }}</mat-label>
+      <input matInput formControlName="name" />
+      @if (form.controls.name.hasError('required') && form.controls.name.touched) {
+        <mat-error>{{ 'common.required' | transloco }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'common.description' | transloco }}</mat-label>
+      <textarea matInput formControlName="description" rows="3"></textarea>
+    </mat-form-field>
+  </form>
+</app-general-modal>

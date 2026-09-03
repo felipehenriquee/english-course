@@ -1,9 +1,11 @@
 import type { BaseEntity } from '@app/core/models/api.model'
 
-/** Referência enxuta de uma unidade (só id + nome), como vem no getById do curso. */
+/** Referência enxuta de uma unidade, como vem no getById do curso. */
 export interface CourseUnitRef {
   id: string
   name: string
+  /** Nº de aulas da unidade — usado no header do accordion. */
+  lessonsCount: number
 }
 
 export interface Course extends BaseEntity {

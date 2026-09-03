@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { FindOptionsWhere, Like, Repository } from 'typeorm'
 
 import { PaginatedResponseDto } from '@/common/dto/paginated-response.dto'
+import { NotFoundError } from '@/common/errors'
 import { BaseService } from '@/common/services/base.service'
 import { Unit } from '@/features/units/entities/unit.entity'
 import { UnitQueryDto } from '@/features/units/dto/unit-query.dto'
@@ -45,5 +46,24 @@ export class UnitsService extends BaseService<Unit> {
     })
 
     return new PaginatedResponseDto(data, total, page, perPage)
+  }
+
+  override async getById(id: string): Promise<Unit> {
+    // Traz também a lista de aulas (só id + nome, ordenadas por nome) — o
+    // frontend chama este endpoint ao abrir o accordion da unidade.
+    const unit = await this.repository
+      .createQueryBuilder('unit')
+      .leftJoin('unit.lessons', 'lesson')
+      .addSelect(['lesson.id', 'lesson.name'])
+      .where('unit.id = :id', { id })
+      .orderBy('lesson.name', 'ASC')
+      .getOne()
+
+    if (!unit) {
+      throw new NotFoundError('Unidade', { id })
+    }
+
+    unit.lessonsCount = unit.lessons.length
+    return unit
   }
 }

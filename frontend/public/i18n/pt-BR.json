@@ -9,6 +9,9 @@
     "back": "Voltar",
     "search": "Pesquisar",
     "details": "Detalhes",
+    "name": "Nome",
+    "description": "Descrição",
+    "required": "Campo obrigatório",
     "empty": "Nenhum registro encontrado.",
     "logout": "Sair",
     "confirmDelete": "Remover {{ name }}?"
@@ -95,9 +98,20 @@
     }
   },
   "units": {
+    "add": "Adicionar módulo",
     "empty": "Nenhum módulo cadastrado.",
     "details": {
       "title": "Detalhes do módulo",
+      "name": "Nome",
+      "description": "Descrição"
+    }
+  },
+  "lessons": {
+    "add": "Adicionar aula",
+    "count": "{{ count }} aulas",
+    "empty": "Nenhuma aula cadastrada.",
+    "details": {
+      "title": "Detalhes da aula",
       "name": "Nome",
       "description": "Descrição"
     }
