@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 import { CoursesStore } from '@app/features/courses/state/courses.store'
 import type { CreateCoursePayload } from '@app/features/courses/models/course.model'
@@ -24,6 +25,7 @@ import type { CreateCoursePayload } from '@app/features/courses/models/course.mo
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    TranslocoPipe,
   ],
   templateUrl: './course-form.component.html',
 })

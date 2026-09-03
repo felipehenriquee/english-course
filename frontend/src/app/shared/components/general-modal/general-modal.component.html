@@ -2,7 +2,7 @@
   <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
     <button
       type="button"
-      aria-label="Fechar"
+      [attr.aria-label]="'common.close' | transloco"
       class="absolute inset-0 h-full w-full cursor-default border-0 bg-black/40 p-0"
       (click)="closed.emit()"
     ></button>
@@ -19,7 +19,12 @@
     >
       <header class="flex items-center justify-between gap-4 border-b border-slate-200 px-4 py-3">
         <h2 class="text-lg font-semibold">{{ title }}</h2>
-        <button mat-icon-button type="button" aria-label="Fechar" (click)="closed.emit()">
+        <button
+          mat-icon-button
+          type="button"
+          [attr.aria-label]="'common.close' | transloco"
+          (click)="closed.emit()"
+        >
           <mat-icon>close</mat-icon>
         </button>
       </header>
@@ -30,7 +35,9 @@
 
       @if (showFooter) {
         <footer class="flex justify-end gap-2 border-t border-slate-200 px-4 py-3">
-          <button mat-button type="button" (click)="cancelled.emit()">{{ cancelLabel }}</button>
+          <button mat-button type="button" (click)="cancelled.emit()">
+            {{ cancelLabel ?? ('common.cancel' | transloco) }}
+          </button>
           <button
             mat-flat-button
             color="primary"
@@ -38,7 +45,7 @@
             [disabled]="saving"
             (click)="save.emit()"
           >
-            {{ saveLabel }}
+            {{ saveLabel ?? ('common.save' | transloco) }}
           </button>
         </footer>
       }

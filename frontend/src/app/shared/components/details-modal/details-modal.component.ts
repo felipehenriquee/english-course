@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 import {
   GeneralModalComponent,
@@ -18,12 +19,13 @@ export interface DetailField {
 @Component({
   selector: 'app-details-modal',
   standalone: true,
-  imports: [GeneralModalComponent],
+  imports: [GeneralModalComponent, TranslocoPipe],
   templateUrl: './details-modal.component.html',
 })
 export class DetailsModalComponent {
   @Input() open = false
-  @Input() title = 'Detalhes'
+  /** Sem valor, usa a tradução `common.details`. */
+  @Input() title?: string
   @Input() fields: DetailField[] = []
   @Input() size: ModalSize = 'md'
 

@@ -1,9 +1,11 @@
 <div class="p-4 md:p-6">
   <div class="mb-4 flex items-center gap-2">
-    <a mat-icon-button routerLink="/courses" title="Voltar">
+    <a mat-icon-button routerLink="/courses" [title]="'common.back' | transloco">
       <mat-icon>arrow_back</mat-icon>
     </a>
-    <h1 class="text-xl font-semibold">{{ isEdit ? 'Editar curso' : 'Novo curso' }}</h1>
+    <h1 class="text-xl font-semibold">
+      {{ (isEdit ? 'courses.form.editTitle' : 'courses.form.newTitle') | transloco }}
+    </h1>
   </div>
 
   <form
@@ -13,23 +15,23 @@
   >
     <div class="flex flex-col gap-1">
       <mat-form-field appearance="outline">
-        <mat-label>Nome</mat-label>
+        <mat-label>{{ 'courses.form.name' | transloco }}</mat-label>
         <input matInput formControlName="name" />
         @if (form.controls.name.hasError('required') && form.controls.name.touched) {
-          <mat-error>Informe o nome do curso.</mat-error>
+          <mat-error>{{ 'courses.form.nameRequired' | transloco }}</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Descrição</mat-label>
+        <mat-label>{{ 'courses.form.description' | transloco }}</mat-label>
         <textarea matInput formControlName="description" rows="4"></textarea>
       </mat-form-field>
     </div>
 
     <div class="mt-2 flex justify-end gap-2">
-      <a mat-button routerLink="/courses" type="button">Cancelar</a>
+      <a mat-button routerLink="/courses" type="button">{{ 'common.cancel' | transloco }}</a>
       <button mat-flat-button color="primary" type="submit" [disabled]="saving()">
-        {{ isEdit ? 'Salvar' : 'Cadastrar' }}
+        {{ (isEdit ? 'courses.form.submitEdit' : 'courses.form.submitNew') | transloco }}
       </button>
     </div>
   </form>

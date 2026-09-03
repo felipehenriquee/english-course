@@ -6,6 +6,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { routes } from '@app/app.routes'
 import { authInterceptor } from '@app/core/interceptors/auth.interceptor'
 import { errorInterceptor } from '@app/core/interceptors/error.interceptor'
+import { provideI18n } from '@app/core/i18n/transloco.providers'
 
 /**
  * Configuração raiz da aplicação (equivalente ao main.ts + plugins do Vue).
@@ -20,5 +21,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
     provideAnimationsAsync(),
+    provideI18n(),
   ],
 }

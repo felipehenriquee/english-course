@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatButtonModule } from '@angular/material/button'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 import type { CreateUserPayload, User } from '@app/features/users/models/user.model'
 
@@ -24,6 +25,7 @@ export interface UserFormDialogData {
     MatSelectModule,
     MatSlideToggleModule,
     MatButtonModule,
+    TranslocoPipe,
   ],
   templateUrl: './user-form-dialog.component.html',
 })

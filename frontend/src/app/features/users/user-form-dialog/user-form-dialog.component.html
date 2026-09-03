@@ -1,31 +1,35 @@
-<h2 mat-dialog-title>{{ data.user ? 'Editar usuário' : 'Novo usuário' }}</h2>
+<h2 mat-dialog-title>
+  {{ (data.user ? 'users.form.editTitle' : 'users.form.newTitle') | transloco }}
+</h2>
 
 <form [formGroup]="form" (ngSubmit)="save()">
   <mat-dialog-content class="flex flex-col gap-1">
     <mat-form-field appearance="outline">
-      <mat-label>Nome</mat-label>
+      <mat-label>{{ 'users.form.name' | transloco }}</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>E-mail</mat-label>
+      <mat-label>{{ 'users.form.email' | transloco }}</mat-label>
       <input matInput type="email" formControlName="email" />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>Papel</mat-label>
+      <mat-label>{{ 'users.form.role' | transloco }}</mat-label>
       <mat-select formControlName="role">
         @for (role of roles; track role) {
-          <mat-option [value]="role">{{ role }}</mat-option>
+          <mat-option [value]="role">{{ 'users.roles.' + role | transloco }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
 
-    <mat-slide-toggle formControlName="active">Ativo</mat-slide-toggle>
+    <mat-slide-toggle formControlName="active">{{
+      'users.form.active' | transloco
+    }}</mat-slide-toggle>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
-    <button mat-button type="button" (click)="cancel()">Cancelar</button>
-    <button mat-flat-button color="primary" type="submit">Salvar</button>
+    <button mat-button type="button" (click)="cancel()">{{ 'common.cancel' | transloco }}</button>
+    <button mat-flat-button color="primary" type="submit">{{ 'common.save' | transloco }}</button>
   </mat-dialog-actions>
 </form>

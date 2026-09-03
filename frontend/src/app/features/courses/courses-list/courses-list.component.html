@@ -1,13 +1,13 @@
 <app-resource-list
-  title="Cursos"
+  [title]="'courses.title' | transloco"
   [columns]="columns"
   [rows]="coursesStore.items()"
   [loading]="coursesStore.loading()"
   [error]="coursesStore.error()"
-  addLabel="Adicionar curso"
+  [addLabel]="'courses.add' | transloco"
   addRoute="/courses/new"
-  searchPlaceholder="Pesquisar cursos"
-  emptyMessage="Nenhum curso encontrado."
+  [searchPlaceholder]="'courses.search' | transloco"
+  [emptyMessage]="'courses.empty' | transloco"
   (searchChange)="applySearch($event)"
   (rowClick)="openDetails($event)"
   (edit)="editCourse($event)"
@@ -16,7 +16,7 @@
 
 <app-details-modal
   [open]="detailsOpen()"
-  [title]="selected()?.name ?? 'Detalhes do curso'"
+  [title]="selected()?.name ?? ('courses.details.title' | transloco)"
   [fields]="detailFields"
   (closed)="detailsOpen.set(false)"
 />

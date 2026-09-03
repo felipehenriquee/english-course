@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 import { AuthStore } from '@app/features/auth/state/auth.store'
 
@@ -21,6 +22,7 @@ import { AuthStore } from '@app/features/auth/state/auth.store'
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    TranslocoPipe,
   ],
   templateUrl: './login.component.html',
 })

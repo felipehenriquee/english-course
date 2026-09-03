@@ -1,0 +1,95 @@
+{
+  "common": {
+    "add": "Add",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "search": "Search",
+    "details": "Details",
+    "empty": "No records found.",
+    "logout": "Sign out",
+    "confirmDelete": "Delete {{ name }}?"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "nav": {
+    "home": "Home",
+    "users": "Users",
+    "courses": "Courses"
+  },
+  "login": {
+    "title": "Welcome back",
+    "subtitle": "Sign in to your account to continue",
+    "email": "Email",
+    "emailInvalid": "Enter a valid email",
+    "password": "Password",
+    "required": "Required field",
+    "submit": "Sign in"
+  },
+  "home": {
+    "hello": "Hello 👋",
+    "helloName": "Hello, {{ name }} 👋",
+    "subtitle": "This is the main page, protected by authentication.",
+    "cardExample": "Example card"
+  },
+  "notFound": {
+    "message": "Page not found",
+    "back": "Back to home"
+  },
+  "users": {
+    "title": "Users",
+    "add": "New user",
+    "search": "Search users",
+    "empty": "No users registered.",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "roles": {
+      "admin": "Administrator",
+      "editor": "Editor",
+      "viewer": "Viewer"
+    },
+    "form": {
+      "newTitle": "New user",
+      "editTitle": "Edit user",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "active": "Active"
+    }
+  },
+  "courses": {
+    "title": "Courses",
+    "add": "Add course",
+    "search": "Search courses",
+    "empty": "No courses found.",
+    "columns": {
+      "name": "Name"
+    },
+    "details": {
+      "title": "Course details",
+      "name": "Name",
+      "description": "Description"
+    },
+    "form": {
+      "newTitle": "New course",
+      "editTitle": "Edit course",
+      "name": "Name",
+      "description": "Description",
+      "nameRequired": "Enter the course name.",
+      "submitNew": "Create",
+      "submitEdit": "Save"
+    }
+  }
+}

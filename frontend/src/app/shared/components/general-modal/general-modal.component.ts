@@ -1,6 +1,7 @@
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl'
 
@@ -17,7 +18,7 @@ export type ModalSize = 'sm' | 'md' | 'lg' | 'xl'
 @Component({
   selector: 'app-general-modal',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule, TranslocoPipe],
   templateUrl: './general-modal.component.html',
 })
 export class GeneralModalComponent {
@@ -26,8 +27,10 @@ export class GeneralModalComponent {
   /** Largura máxima do modal. */
   @Input() size: ModalSize = 'md'
   @Input() showFooter = true
-  @Input() saveLabel = 'Salvar'
-  @Input() cancelLabel = 'Cancelar'
+  /** Sem valor, usa a tradução `common.save`. */
+  @Input() saveLabel?: string
+  /** Sem valor, usa a tradução `common.cancel`. */
+  @Input() cancelLabel?: string
   /** Desabilita o botão Salvar enquanto true (ex: requisição em andamento). */
   @Input() saving = false
 

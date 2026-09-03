@@ -4,10 +4,30 @@
   </button>
   <span class="ml-2">{{ appName }}</span>
   <span class="flex-1"></span>
+
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="langMenu"
+    [attr.aria-label]="'language.label' | transloco"
+    [title]="'language.label' | transloco"
+  >
+    <mat-icon>translate</mat-icon>
+  </button>
+  <mat-menu #langMenu="matMenu">
+    @for (lang of languageStore.available; track lang.code) {
+      <button mat-menu-item (click)="languageStore.setLang(lang.code)">
+        @if (lang.code === languageStore.current()) {
+          <mat-icon>check</mat-icon>
+        }
+        <span>{{ lang.label }}</span>
+      </button>
+    }
+  </mat-menu>
+
   @if (authStore.user(); as user) {
     <span class="mr-3 hidden text-sm sm:inline">{{ user.name }}</span>
   }
-  <button mat-icon-button title="Sair" (click)="logout()">
+  <button mat-icon-button [title]="'common.logout' | transloco" (click)="logout()">
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>
@@ -18,7 +38,7 @@
       @for (item of navItems; track item.route) {
         <a mat-list-item [routerLink]="item.route">
           <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-          <span matListItemTitle>{{ item.label }}</span>
+          <span matListItemTitle>{{ item.label | transloco }}</span>
         </a>
       }
     </mat-nav-list>

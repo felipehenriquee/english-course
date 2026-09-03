@@ -1,0 +1,95 @@
+{
+  "common": {
+    "add": "Adicionar",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "close": "Fechar",
+    "edit": "Editar",
+    "delete": "Remover",
+    "back": "Voltar",
+    "search": "Pesquisar",
+    "details": "Detalhes",
+    "empty": "Nenhum registro encontrado.",
+    "logout": "Sair",
+    "confirmDelete": "Remover {{ name }}?"
+  },
+  "language": {
+    "label": "Idioma"
+  },
+  "nav": {
+    "home": "Início",
+    "users": "Usuários",
+    "courses": "Cursos"
+  },
+  "login": {
+    "title": "Bem-vindo de volta",
+    "subtitle": "Entre com sua conta para continuar",
+    "email": "E-mail",
+    "emailInvalid": "Informe um e-mail válido",
+    "password": "Senha",
+    "required": "Campo obrigatório",
+    "submit": "Entrar"
+  },
+  "home": {
+    "hello": "Olá 👋",
+    "helloName": "Olá, {{ name }} 👋",
+    "subtitle": "Esta é a página principal, protegida por autenticação.",
+    "cardExample": "Exemplo de card"
+  },
+  "notFound": {
+    "message": "Página não encontrada",
+    "back": "Voltar para o início"
+  },
+  "users": {
+    "title": "Usuários",
+    "add": "Novo usuário",
+    "search": "Pesquisar usuários",
+    "empty": "Nenhum usuário cadastrado.",
+    "columns": {
+      "name": "Nome",
+      "email": "E-mail",
+      "role": "Papel",
+      "status": "Status"
+    },
+    "status": {
+      "active": "Ativo",
+      "inactive": "Inativo"
+    },
+    "roles": {
+      "admin": "Administrador",
+      "editor": "Editor",
+      "viewer": "Visualizador"
+    },
+    "form": {
+      "newTitle": "Novo usuário",
+      "editTitle": "Editar usuário",
+      "name": "Nome",
+      "email": "E-mail",
+      "role": "Papel",
+      "active": "Ativo"
+    }
+  },
+  "courses": {
+    "title": "Cursos",
+    "add": "Adicionar curso",
+    "search": "Pesquisar cursos",
+    "empty": "Nenhum curso encontrado.",
+    "columns": {
+      "name": "Nome"
+    },
+    "details": {
+      "title": "Detalhes do curso",
+      "name": "Nome",
+      "description": "Descrição"
+    },
+    "form": {
+      "newTitle": "Novo curso",
+      "editTitle": "Editar curso",
+      "name": "Nome",
+      "description": "Descrição",
+      "nameRequired": "Informe o nome do curso.",
+      "submitNew": "Cadastrar",
+      "submitEdit": "Salvar"
+    }
+  }
+}

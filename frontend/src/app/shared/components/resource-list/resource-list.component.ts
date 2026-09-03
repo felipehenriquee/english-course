@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { TranslocoPipe } from '@jsverse/transloco'
 
 export interface ResourceColumn<T> {
   /** Chave do campo no objeto da linha. */
@@ -42,6 +43,7 @@ const ACTIONS_COLUMN = '__actions__'
     MatFormFieldModule,
     MatInputModule,
     MatProgressBarModule,
+    TranslocoPipe,
   ],
   templateUrl: './resource-list.component.html',
 })
@@ -52,11 +54,14 @@ export class ResourceListComponent<T extends { id: string | number }> implements
   @Input() rows: T[] = []
   @Input() loading = false
   @Input() error: string | null = null
-  @Input() addLabel = 'Adicionar'
+  /** Sem valor, usa a tradução `common.add`. */
+  @Input() addLabel?: string
   /** routerLink do botão de adicionar. Sem valor, o botão some. */
   @Input() addRoute: string | (string | number)[] | null = null
-  @Input() searchPlaceholder = 'Pesquisar'
-  @Input() emptyMessage = 'Nenhum registro encontrado.'
+  /** Sem valor, usa a tradução `common.search`. */
+  @Input() searchPlaceholder?: string
+  /** Sem valor, usa a tradução `common.empty`. */
+  @Input() emptyMessage?: string
   @Input() showActions = true
 
   /** Termo de busca, já com debounce. */

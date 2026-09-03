@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatChipsModule } from '@angular/material/chips'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco'
 
 import { UsersStore } from '@app/features/users/state/users.store'
 import {
@@ -23,12 +24,14 @@ import type { CreateUserPayload, User } from '@app/features/users/models/user.mo
     MatChipsModule,
     MatDialogModule,
     MatProgressBarModule,
+    TranslocoPipe,
   ],
   templateUrl: './users-list.component.html',
 })
 export class UsersListComponent implements OnInit {
   readonly usersStore = inject(UsersStore)
   private readonly dialog = inject(MatDialog)
+  private readonly transloco = inject(TranslocoService)
 
   readonly displayedColumns = ['name', 'email', 'role', 'active', 'actions']
 
@@ -61,7 +64,8 @@ export class UsersListComponent implements OnInit {
   }
 
   async remove(user: User): Promise<void> {
-    if (confirm(`Remover ${user.name}?`)) {
+    const message = this.transloco.translate('common.confirmDelete', { name: user.name })
+    if (confirm(message)) {
       await this.usersStore.remove(user.id)
     }
   }

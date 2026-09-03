@@ -1,6 +1,6 @@
 <app-general-modal
   [open]="open"
-  [title]="title"
+  [title]="title ?? ('common.details' | transloco)"
   [size]="size"
   [showFooter]="false"
   (closed)="closed.emit()"
