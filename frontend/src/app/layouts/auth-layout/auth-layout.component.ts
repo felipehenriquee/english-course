@@ -8,7 +8,7 @@ import { RouterOutlet } from '@angular/router'
   standalone: true,
   imports: [RouterOutlet],
   template: `
-    <div class="min-h-screen bg-slate-50">
+    <div class="bg-scene min-h-screen">
       <router-outlet />
     </div>
   `,
