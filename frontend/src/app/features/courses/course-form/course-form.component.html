@@ -25,12 +25,12 @@
     </div>
 
     <div class="mt-2 flex justify-end gap-2">
-      <app-button variant="text" [color]="color.neutral50" type="button" (click)="cancel()">
+      <app-button variant="text" [color]="color.ink" type="button" (click)="cancel()">
         {{ 'common.cancel' | transloco }}
       </app-button>
       <app-button
         [color]="color.primary"
-        [textColor]="color.neutral900"
+        [textColor]="color.inkOnAccent"
         type="submit"
         [disabled]="saving()"
       >

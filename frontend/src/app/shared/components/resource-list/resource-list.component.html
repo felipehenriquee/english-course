@@ -9,7 +9,7 @@
     />
 
     @if (addRoute || showAdd) {
-      <app-button [icon]="Icon.Add" [textColor]="color.neutral800" (click)="goToAdd()">
+      <app-button [icon]="Icon.Add" [textColor]="color.inkOnAccent" (click)="goToAdd()">
         {{ addLabel ?? ('common.add' | transloco) }}
       </app-button>
     }
@@ -28,14 +28,12 @@
       mat-table
       [dataSource]="rows"
       class="w-full"
-      style="
-        --mat-table-background-color: transparent;
-        --mat-table-header-headline-color: #fafafc;
-        --mat-table-header-headline-font: 'Manrope', sans-serif;
-        --mat-table-header-headline-weight: 400;
-        --mat-table-row-item-label-text-color: #fafafc;
-        --mat-table-row-item-label-text-font: 'Manrope', sans-serif;
-      "
+      [style.--mat-table-background-color]="'transparent'"
+      [style.--mat-table-header-headline-color]="color.ink"
+      [style.--mat-table-header-headline-font]="'Manrope, sans-serif'"
+      [style.--mat-table-header-headline-weight]="400"
+      [style.--mat-table-row-item-label-text-color]="color.ink"
+      [style.--mat-table-row-item-label-text-font]="'Manrope, sans-serif'"
     >
       @for (column of columns; track column.key) {
         <ng-container [matColumnDef]="column.key">

@@ -19,6 +19,10 @@
   "language": {
     "label": "Idioma"
   },
+  "theme": {
+    "light": "Usar tema claro",
+    "dark": "Usar tema escuro"
+  },
   "nav": {
     "home": "Início",
     "users": "Usuários",

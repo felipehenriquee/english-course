@@ -5,7 +5,10 @@
 >
   <div class="flex h-16 shrink-0 items-center px-4">
     @if (opened()) {
-      <span class="font-display-700 whitespace-nowrap text-lg text-sp-neutral-50">SAPO</span>
+      <span
+        class="font-display-700 whitespace-nowrap text-lg text-sp-neutral-900 dark:text-sp-neutral-50"
+        >SAPO</span
+      >
     }
   </div>
 
@@ -13,9 +16,9 @@
     @for (item of navItems; track item.route) {
       <a
         [routerLink]="item.route"
-        routerLinkActive="!bg-sp-primary/20 !text-sp-primary"
+        routerLinkActive="!bg-sp-secondary/20 !text-sp-secondary dark:!bg-sp-primary/20 dark:!text-sp-primary"
         [routerLinkActiveOptions]="{ exact: item.exact }"
-        class="font-display-700 flex items-center gap-3 whitespace-nowrap rounded-md px-3 py-2 text-sm text-sp-neutral-50 no-underline transition-colors hover:!bg-sp-primary/20 hover:!text-sp-primary"
+        class="font-display-700 flex items-center gap-3 whitespace-nowrap rounded-md px-3 py-2 text-sm text-sp-neutral-900 no-underline transition-colors hover:!bg-sp-secondary/20 hover:!text-sp-secondary dark:text-sp-neutral-50 dark:hover:!bg-sp-primary/20 dark:hover:!text-sp-primary"
       >
         <mat-icon>{{ item.icon }}</mat-icon>
         @if (opened()) {

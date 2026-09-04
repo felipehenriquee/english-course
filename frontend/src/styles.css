@@ -15,7 +15,7 @@
 @tailwind utilities;
 
 :root {
-  /* Aliases usados pelas utilities abaixo (bg-scene/glass/glass-2). */
+  /* Aliases usados por `.bg-scene` (só existe no tema dark, ver abaixo). */
   --accent: #dbf24e; /* sp-primary */
   --primary: #345efc; /* sp-secondary */
   --background: oklch(0.16 0.03 267);
@@ -82,7 +82,17 @@
     font-weight: 700 !important;
   }
 
+  /*
+   * bg-scene / glass / glass-2 são theme-aware via cascata de CSS pura (regra
+   * `.dark <seletor>` escrita à mão), não via variantes `dark:` do Tailwind
+   * em cada uso — assim toda tela que já escreve `class="glass"` continua
+   * funcionando sem precisar mudar nada; só a definição aqui muda por tema.
+   * `.dark` é alternado no `<html>` pelo ThemeStore (ver core/theme/).
+   */
   .bg-scene {
+    background: #ffffff;
+  }
+  .dark .bg-scene {
     background:
       radial-gradient(
         1100px 520px at 82% -8%,
@@ -103,12 +113,22 @@
   }
 
   .glass {
+    background: linear-gradient(180deg, oklch(1 0 0 / 90%), oklch(1 0 0 / 75%));
+    border: 1px solid oklch(0 0 0 / 8%);
+    backdrop-filter: blur(18px);
+  }
+  .dark .glass {
     background: linear-gradient(180deg, oklch(1 0 0 / 7%), oklch(1 0 0 / 3%));
     border: 1px solid oklch(1 0 0 / 10%);
     backdrop-filter: blur(18px);
   }
 
   .glass-2 {
+    background: linear-gradient(180deg, oklch(1 0 0 / 85%), oklch(1 0 0 / 70%));
+    border: 1px solid oklch(0 0 0 / 6%);
+    backdrop-filter: blur(14px);
+  }
+  .dark .glass-2 {
     background: linear-gradient(180deg, oklch(1 0 0 / 5%), oklch(1 0 0 / 2%));
     border: 1px solid oklch(1 0 0 / 8%);
     backdrop-filter: blur(14px);
@@ -134,9 +154,15 @@ body {
  * especificidade de uma classe só, `0,1,0`) — como esse CSS do Material é
  * injetado em runtime pelo componente, ele acaba vencendo `.glass` sozinha
  * na cascata. Um seletor composto (duas classes no mesmo elemento, `0,2,0`)
- * resolve sem precisar de `!important`.
+ * resolve sem precisar de `!important`. `.dark` prefixado do mesmo jeito que
+ * `.bg-scene`/`.glass` acima.
  */
 .mat-mdc-menu-panel.glass {
+  background: linear-gradient(180deg, oklch(1 0 0 / 90%), oklch(1 0 0 / 75%));
+  border: 1px solid oklch(0 0 0 / 8%);
+  backdrop-filter: blur(18px);
+}
+.dark .mat-mdc-menu-panel.glass {
   background: linear-gradient(180deg, oklch(1 0 0 / 7%), oklch(1 0 0 / 3%));
   border: 1px solid oklch(1 0 0 / 10%);
   backdrop-filter: blur(18px);
@@ -149,6 +175,24 @@ body {
  * seletor por seletor.
  */
 .mat-expansion-panel.glass {
+  /* Material aplica uma sombra preta fixa (não é CSS var) em
+     `.mat-expansion-panel:not([class*=mat-elevation-z])`, mesma
+     especificidade (0,2,0) do nosso seletor — no dark ela fica uma mancha
+     escura em cima do glass, então zeramos e ficamos só com a borda. */
+  box-shadow: none !important;
+  background: linear-gradient(180deg, oklch(1 0 0 / 90%), oklch(1 0 0 / 75%));
+  border: 1px solid oklch(0 0 0 / 8%);
+  backdrop-filter: blur(18px);
+  --mat-expansion-container-text-color: #343941;
+  --mat-expansion-container-text-font: 'Manrope', sans-serif;
+  --mat-expansion-header-text-color: #343941;
+  --mat-expansion-header-text-font: 'Space Grotesk', sans-serif;
+  --mat-expansion-header-text-weight: 700;
+  --mat-expansion-header-description-color: #687182;
+  --mat-expansion-header-indicator-color: #343941;
+}
+.dark .mat-expansion-panel.glass {
+  box-shadow: none !important;
   background: linear-gradient(180deg, oklch(1 0 0 / 7%), oklch(1 0 0 / 3%));
   border: 1px solid oklch(1 0 0 / 10%);
   backdrop-filter: blur(18px);
@@ -167,9 +211,31 @@ body {
  * do CDK overlay), não no elemento que pinta o fundo — por isso o seletor
  * descendente, não composto. `color`/`font-family` soltos aqui cobrem
  * qualquer texto sem token próprio (ex: label do mat-slide-toggle), via
- * herança normal de CSS.
+ * herança normal de CSS. O outline/seta do select usa `sp-secondary` no
+ * claro (mesma troca de accent do resto do app).
  */
 .glass .mat-mdc-dialog-surface {
+  background: linear-gradient(180deg, oklch(1 0 0 / 90%), oklch(1 0 0 / 75%));
+  border: 1px solid oklch(0 0 0 / 8%);
+  backdrop-filter: blur(18px);
+  color: #343941;
+  font-family: 'Manrope', sans-serif;
+
+  --mdc-dialog-subhead-color: #343941;
+  --mdc-dialog-subhead-font: 'Space Grotesk', sans-serif;
+  --mdc-dialog-subhead-weight: 700;
+  --mdc-dialog-supporting-text-color: #343941;
+  --mdc-dialog-supporting-text-font: 'Manrope', sans-serif;
+
+  --mdc-outlined-text-field-label-text-color: #687182;
+  --mdc-outlined-text-field-outline-color: #345efc;
+  --mdc-outlined-text-field-hover-outline-color: #345efc;
+  --mdc-outlined-text-field-focus-outline-color: #345efc;
+  --mat-select-enabled-trigger-text-color: #343941;
+  --mat-select-enabled-arrow-color: #345efc;
+  --mat-select-placeholder-text-color: #687182;
+}
+.dark .glass .mat-mdc-dialog-surface {
   background: linear-gradient(180deg, oklch(1 0 0 / 7%), oklch(1 0 0 / 3%));
   border: 1px solid oklch(1 0 0 / 10%);
   backdrop-filter: blur(18px);

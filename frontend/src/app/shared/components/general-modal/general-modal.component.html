@@ -10,12 +10,16 @@
     [class.max-w-2xl]="size === 'lg'"
     [class.max-w-4xl]="size === 'xl'"
   >
-    <header class="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-3">
-      <h2 class="font-display-700 text-lg text-sp-neutral-50">{{ title }}</h2>
+    <header
+      class="flex items-center justify-between gap-4 border-b border-black/10 px-4 py-3 dark:border-white/10"
+    >
+      <h2 class="font-display-700 text-lg text-sp-neutral-900 dark:text-sp-neutral-50">
+        {{ title }}
+      </h2>
       <app-button
         iconOnly
         size="sm"
-        [color]="color.neutral50"
+        [color]="color.ink"
         icon="close"
         [tooltip]="'common.close' | transloco"
         (click)="closed.emit()"
@@ -27,13 +31,15 @@
     </div>
 
     @if (showFooter) {
-      <footer class="flex justify-end gap-2 border-t border-white/10 px-4 py-3">
-        <app-button variant="text" [color]="color.neutral50" (click)="cancelled.emit()">
+      <footer
+        class="flex justify-end gap-2 border-t border-black/10 px-4 py-3 dark:border-white/10"
+      >
+        <app-button variant="text" [color]="color.ink" (click)="cancelled.emit()">
           {{ cancelLabel ?? ('common.cancel' | transloco) }}
         </app-button>
         <app-button
           [color]="color.primary"
-          [textColor]="color.neutral900"
+          [textColor]="color.inkOnAccent"
           [disabled]="saving"
           (click)="save.emit()"
         >

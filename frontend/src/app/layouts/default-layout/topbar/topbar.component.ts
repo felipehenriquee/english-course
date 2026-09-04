@@ -9,6 +9,7 @@ import { filter, map, startWith } from 'rxjs'
 import { AuthStore } from '@app/features/auth/state/auth.store'
 import { LanguageStore } from '@app/core/i18n/language.store'
 import { AppLang } from '@app/core/i18n/i18n'
+import { ThemeStore } from '@app/core/theme/theme.store'
 import { ButtonComponent } from '@app/shared/components/button/button.component'
 import { color } from '@app/core/constants/colors'
 
@@ -28,6 +29,7 @@ export class TopbarComponent {
   private readonly route = inject(ActivatedRoute)
   readonly authStore = inject(AuthStore)
   readonly languageStore = inject(LanguageStore)
+  readonly themeStore = inject(ThemeStore)
   readonly color = color
 
   // O app-button do gatilho não é `mat-menu-item`, então não fecha o menu
