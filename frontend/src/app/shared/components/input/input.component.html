@@ -1,0 +1,55 @@
+<mat-form-field [appearance]="appearance" [subscriptSizing]="subscriptSizing" class="w-full">
+  @if (label) {
+    <mat-label>{{ label }}</mat-label>
+  }
+
+  @if (prefixIcon) {
+    <mat-icon matPrefix>{{ prefixIcon }}</mat-icon>
+  }
+
+  @if (multiline) {
+    <textarea
+      matInput
+      [rows]="rows"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [value]="value"
+      (input)="onInput($any($event.target).value)"
+      (blur)="onBlur()"
+    ></textarea>
+  } @else {
+    <input
+      matInput
+      [type]="inputType"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [autocomplete]="autocomplete"
+      [value]="value"
+      (input)="onInput($any($event.target).value)"
+      (blur)="onBlur()"
+    />
+  }
+
+  @if (type === 'password') {
+    <app-button
+      matSuffix
+      iconOnly
+      size="sm"
+      type="button"
+      tooltip="Visualizar senha"
+      [tabIndex]="-1"
+      [color]="color.neutral700"
+      [icon]="hidePassword ? 'visibility_off' : 'visibility'"
+      (click)="hidePassword = !hidePassword"
+      class="mr-4"
+    />
+  }
+
+  @if (hint && !showError) {
+    <mat-hint>{{ hint }}</mat-hint>
+  }
+
+  @if (showError) {
+    <mat-error>{{ errorMessage }}</mat-error>
+  }
+</mat-form-field>
