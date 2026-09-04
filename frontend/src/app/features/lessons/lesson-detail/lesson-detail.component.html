@@ -1,12 +1,8 @@
 <div class="p-4 md:p-6">
-  <div class="mb-4 flex items-center gap-2">
-    <a mat-icon-button [routerLink]="backLink" [title]="'common.back' | transloco">
-      <mat-icon>arrow_back</mat-icon>
-    </a>
-    <h1 class="text-xl font-semibold">
-      {{ lesson()?.name ?? ('lessons.details.title' | transloco) }}
-    </h1>
-  </div>
+  <app-detail-header
+    [title]="lesson()?.name ?? ('lessons.details.title' | transloco)"
+    [backLink]="backLink"
+  />
 
   @if (loading()) {
     <p class="text-sm text-slate-500">…</p>

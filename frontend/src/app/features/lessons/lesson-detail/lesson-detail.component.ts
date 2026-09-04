@@ -1,14 +1,12 @@
 import { Component, Input, OnInit, inject, signal } from '@angular/core'
-import { RouterLink } from '@angular/router'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { firstValueFrom } from 'rxjs'
 import { TranslocoPipe } from '@jsverse/transloco'
-import { MatIconModule } from '@angular/material/icon'
-import { MatButtonModule } from '@angular/material/button'
 
 import { ButtonComponent } from '@app/shared/components/button/button.component'
 import { RichEditorComponent } from '@app/shared/components/rich-editor/rich-editor.component'
+import { DetailHeaderComponent } from '@app/shared/components/detail-header/detail-header.component'
 import { Icon } from '@app/shared/icon.enum'
 import { color } from '@app/core/constants/colors'
 import { LessonService } from '@app/features/lessons/services/lesson.service'
@@ -25,13 +23,11 @@ import type { Lesson } from '@app/features/lessons/models/lesson.model'
   selector: 'app-lesson-detail',
   standalone: true,
   imports: [
-    RouterLink,
     ReactiveFormsModule,
-    MatIconModule,
-    MatButtonModule,
     RichEditorComponent,
     TranslocoPipe,
     ButtonComponent,
+    DetailHeaderComponent,
   ],
   templateUrl: './lesson-detail.component.html',
 })
