@@ -25,13 +25,15 @@
     "courses": "Cursos"
   },
   "login": {
-    "title": "Bem-vindo de volta",
-    "subtitle": "Entre com sua conta para continuar",
+    "eyebrow": "Painel administrador",
+    "heading": "Entrar",
     "email": "E-mail",
     "emailInvalid": "Informe um e-mail válido",
     "password": "Senha",
     "required": "Campo obrigatório",
-    "submit": "Entrar"
+    "submit": "Entrar",
+    "noAccount": "Não tem conta?",
+    "createAccount": "Criar agora"
   },
   "home": {
     "hello": "Olá 👋",

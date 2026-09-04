@@ -25,61 +25,81 @@
 }
 
 @layer utilities {
+  /*
+   * !important nas duas propriedades: o Material aplica tipografia direto em
+   * h1-h6 via `.mat-typography h1` etc (classe + elemento, mais específico
+   * que uma única classe utilitária), então sem isso essas utilities perdem
+   * a cascata em qualquer heading — mesmo problema de especificidade do
+   * `.bg-scene` vs `mat-card` (ver CardComponent).
+   */
   .font-sans-200 {
-    font-family: var(--font-sans);
-    font-weight: 200;
+    font-family: var(--font-sans) !important;
+    font-weight: 200 !important;
   }
   .font-sans-300 {
-    font-family: var(--font-sans);
-    font-weight: 300;
+    font-family: var(--font-sans) !important;
+    font-weight: 300 !important;
   }
   .font-sans-400 {
-    font-family: var(--font-sans);
-    font-weight: 400;
+    font-family: var(--font-sans) !important;
+    font-weight: 400 !important;
   }
   .font-sans-500 {
-    font-family: var(--font-sans);
-    font-weight: 500;
+    font-family: var(--font-sans) !important;
+    font-weight: 500 !important;
   }
   .font-sans-600 {
-    font-family: var(--font-sans);
-    font-weight: 600;
+    font-family: var(--font-sans) !important;
+    font-weight: 600 !important;
   }
   .font-sans-700 {
-    font-family: var(--font-sans);
-    font-weight: 700;
+    font-family: var(--font-sans) !important;
+    font-weight: 700 !important;
   }
   .font-sans-800 {
-    font-family: var(--font-sans);
-    font-weight: 800;
+    font-family: var(--font-sans) !important;
+    font-weight: 800 !important;
   }
 
   .font-display-300 {
-    font-family: var(--font-display);
-    font-weight: 300;
+    font-family: var(--font-display) !important;
+    font-weight: 300 !important;
   }
   .font-display-400 {
-    font-family: var(--font-display);
-    font-weight: 400;
+    font-family: var(--font-display) !important;
+    font-weight: 400 !important;
   }
   .font-display-500 {
-    font-family: var(--font-display);
-    font-weight: 500;
+    font-family: var(--font-display) !important;
+    font-weight: 500 !important;
   }
   .font-display-600 {
-    font-family: var(--font-display);
-    font-weight: 600;
+    font-family: var(--font-display) !important;
+    font-weight: 600 !important;
   }
   .font-display-700 {
-    font-family: var(--font-display);
-    font-weight: 700;
+    font-family: var(--font-display) !important;
+    font-weight: 700 !important;
   }
 
   .bg-scene {
     background:
-      radial-gradient(1100px 520px at 82% -8%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 60%),
-      radial-gradient(950px 640px at -12% 18%, color-mix(in oklab, var(--primary) 30%, transparent), transparent 55%),
-      linear-gradient(135deg, oklch(0.18 0.032 266) 0%, var(--background) 60%, oklch(0.17 0.028 268) 100%);
+      radial-gradient(
+        1100px 520px at 82% -8%,
+        color-mix(in oklab, var(--accent) 16%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        950px 640px at -12% 18%,
+        color-mix(in oklab, var(--primary) 30%, transparent),
+        transparent 55%
+      ),
+      linear-gradient(
+        135deg,
+        oklch(0.18 0.032 266) 0%,
+        var(--background) 60%,
+        oklch(0.17 0.028 268) 100%
+      );
   }
 
   .glass {
@@ -103,4 +123,24 @@ body {
 body {
   margin: 0;
   font-family: Manrope, 'Helvetica Neue', sans-serif;
+}
+
+.tilt-a {
+  transform: rotate(-1.4deg);
+}
+
+/*
+ * Inputs `appearance="fill"` (ex: app-input no login) ficam pill, iguais ao
+ * botão. O Material trava border-bottom-*-radius em 0 no filled (deixa
+ * espaço pro indicator embaixo), então --mdc-filled-text-field-container-
+ * shape sozinha só arredonda o topo — por isso o !important direto nas
+ * classes internas do MDC, e a altura do indicator some (senão vira uma
+ * linha reta cortando a pílula).
+ */
+.mdc-text-field--filled,
+.mdc-text-field--filled .mdc-text-field__ripple {
+  border-radius: 9999px !important;
+}
+.mdc-text-field--filled {
+  --mdc-filled-text-field-active-indicator-height: 0;
 }

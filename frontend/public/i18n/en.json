@@ -25,13 +25,15 @@
     "courses": "Courses"
   },
   "login": {
-    "title": "Welcome back",
-    "subtitle": "Sign in to your account to continue",
+    "eyebrow": "Admin panel",
+    "heading": "Sign in",
     "email": "Email",
     "emailInvalid": "Enter a valid email",
     "password": "Password",
     "required": "Required field",
-    "submit": "Sign in"
+    "submit": "Sign in",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create now"
   },
   "home": {
     "hello": "Hello 👋",
