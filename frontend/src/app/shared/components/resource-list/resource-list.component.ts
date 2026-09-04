@@ -34,13 +34,13 @@ export interface ResourceColumn<T> {
 const ACTIONS_COLUMN = '__actions__'
 
 /**
- * Tela genérica de listagem de um CRUD: título do módulo, barra de busca,
- * botão "adicionar" e uma <mat-table> com colunas configuráveis.
+ * Tela genérica de listagem de um CRUD: barra de busca, botão "adicionar" e
+ * uma <mat-table> com colunas configuráveis. Sem título próprio — o nome da
+ * tela já vem da topbar (ver TopbarComponent / `data.title` nas rotas).
  *
- * Recebe o nome do módulo ([title]), a definição das colunas ([columns]) e
- * o conteúdo das linhas ([rows]); reporta interações pelos outputs. Os
- * próximos CRUDs reutilizam este componente — ver
- * features/courses/courses-list.
+ * Recebe a definição das colunas ([columns]) e o conteúdo das linhas
+ * ([rows]); reporta interações pelos outputs. Os próximos CRUDs reutilizam
+ * este componente — ver features/courses/courses-list.
  */
 @Component({
   selector: 'app-resource-list',
@@ -56,8 +56,6 @@ const ACTIONS_COLUMN = '__actions__'
   templateUrl: './resource-list.component.html',
 })
 export class ResourceListComponent<T extends { id: string | number }> implements OnChanges {
-  /** Nome do módulo, ex: "Cursos". */
-  @Input() title = ''
   @Input() columns: ResourceColumn<T>[] = []
   @Input() rows: T[] = []
   @Input() loading = false
