@@ -1,16 +1,15 @@
 import { Component, Input, OnInit, inject, signal } from '@angular/core'
-import { Router, RouterLink } from '@angular/router'
+import { Router } from '@angular/router'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { firstValueFrom } from 'rxjs'
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco'
-import { MatButtonModule } from '@angular/material/button'
-import { MatIconModule } from '@angular/material/icon'
 import { MatExpansionModule } from '@angular/material/expansion'
 
 import { ButtonComponent } from '@app/shared/components/button/button.component'
 import { InputComponent } from '@app/shared/components/input/input.component'
 import { DetailField } from '@app/shared/components/details-modal/details-modal.component'
 import { GeneralModalComponent } from '@app/shared/components/general-modal/general-modal.component'
+import { DetailHeaderComponent } from '@app/shared/components/detail-header/detail-header.component'
 import { Icon } from '@app/shared/icon.enum'
 import { color } from '@app/core/constants/colors'
 import { CoursesStore } from '@app/features/courses/state/courses.store'
@@ -34,15 +33,13 @@ type FormMode = 'unit' | 'lesson'
   selector: 'app-course-detail',
   standalone: true,
   imports: [
-    RouterLink,
     ReactiveFormsModule,
-    MatButtonModule,
-    MatIconModule,
     MatExpansionModule,
     TranslocoPipe,
     ButtonComponent,
     InputComponent,
     GeneralModalComponent,
+    DetailHeaderComponent,
   ],
   templateUrl: './course-detail.component.html',
 })

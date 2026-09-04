@@ -1,34 +1,32 @@
 <div class="p-4 md:p-6">
-  <div class="mb-4 flex items-center gap-2">
-    <a mat-icon-button routerLink="/courses" [title]="'common.back' | transloco">
-      <mat-icon>arrow_back</mat-icon>
-    </a>
-    <h1 class="text-xl font-semibold">
-      {{ course()?.name ?? ('courses.details.title' | transloco) }}
-    </h1>
-  </div>
+  <app-detail-header
+    [title]="course()?.name ?? ('courses.details.title' | transloco)"
+    backLink="/courses"
+  />
 
   @if (loading()) {
-    <p class="text-sm text-slate-500">…</p>
+    <p class="font-sans-400 text-sm text-sp-neutral-300">…</p>
   } @else if (error()) {
     <div class="max-w-2xl rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{{ error() }}</div>
   } @else if (course()) {
-    <div class="max-w-2xl rounded-lg border border-slate-200 bg-white p-4 md:p-6">
+    <div class="glass max-w-2xl overflow-hidden rounded-lg p-4 md:p-6">
       <dl class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-[10rem_1fr]">
         @for (field of detailFields; track field.label) {
-          <dt class="text-sm font-medium text-slate-500">{{ field.label }}</dt>
-          <dd class="text-sm text-slate-800">{{ format(field.value) }}</dd>
+          <dt class="font-sans-400 text-sm text-sp-neutral-300">{{ field.label }}</dt>
+          <dd class="font-sans-400 text-sm text-sp-neutral-50">{{ format(field.value) }}</dd>
         }
       </dl>
     </div>
 
     <section class="mt-6 max-w-2xl">
-      <h2 class="mb-3 text-lg font-semibold">{{ 'courses.columns.units' | transloco }}</h2>
+      <h2 class="font-display-700 mb-3 text-lg text-sp-neutral-50">
+        {{ 'courses.columns.units' | transloco }}
+      </h2>
 
       @if (units.length > 0) {
-        <mat-accordion class="block">
+        <mat-accordion class="flex flex-col gap-2">
           @for (unit of units; track unit.id) {
-            <mat-expansion-panel (opened)="onPanelOpened(unit.id)">
+            <mat-expansion-panel class="glass overflow-hidden" (opened)="onPanelOpened(unit.id)">
               <mat-expansion-panel-header>
                 <mat-panel-title>{{ unit.name }}</mat-panel-title>
                 <mat-panel-description>
@@ -37,15 +35,15 @@
               </mat-expansion-panel-header>
 
               @if (loadingUnit() === unit.id) {
-                <p class="text-sm text-slate-500">…</p>
+                <p class="font-sans-400 text-sm text-sp-neutral-300">…</p>
               } @else {
                 @if (unitDescription(unit.id); as description) {
-                  <p class="mb-3 text-sm text-slate-600">{{ description }}</p>
+                  <p class="font-sans-400 mb-3 text-sm text-sp-neutral-50">{{ description }}</p>
                 }
 
                 @if (lessonsOf(unit.id); as lessons) {
                   @if (lessons.length > 0) {
-                    <ul class="m-0 list-none divide-y divide-slate-100 p-0">
+                    <ul class="m-0 list-none divide-y divide-white/10 p-0">
                       @for (lesson of lessons; track lesson.id) {
                         <li class="py-1">
                           <app-button
@@ -59,7 +57,9 @@
                       }
                     </ul>
                   } @else {
-                    <p class="text-sm text-slate-500">{{ 'lessons.empty' | transloco }}</p>
+                    <p class="font-sans-400 text-sm text-sp-neutral-300">
+                      {{ 'lessons.empty' | transloco }}
+                    </p>
                   }
                 }
               }
@@ -78,10 +78,8 @@
           }
         </mat-accordion>
       } @else {
-        <div
-          class="rounded-lg border border-slate-200 bg-white p-4 text-center text-sm text-slate-500"
-        >
-          {{ 'units.empty' | transloco }}
+        <div class="glass overflow-hidden rounded-lg p-4 text-center">
+          <p class="font-sans-400 text-sm text-sp-neutral-300">{{ 'units.empty' | transloco }}</p>
         </div>
       }
 
