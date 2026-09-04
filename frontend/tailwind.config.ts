@@ -127,7 +127,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['"Roboto"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['"Manrope"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       spacing: {
         18: '4.5rem',
