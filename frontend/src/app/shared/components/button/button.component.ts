@@ -12,15 +12,24 @@ export type ButtonSize = 'sm' | 'md' | 'lg'
 // cada variante zera explicitamente `border`/`background`/`padding` do <button>.
 const BASE =
   'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium ' +
-  'font-display-700 !text-[16px] cursor-pointer transition-colors focus-visible:outline-none ' +
-  'focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 ' +
-  'disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0'
+  'font-display-700 !text-[16px] cursor-pointer transition-colors duration-300 ' +
+  'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none ' +
+  'disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0'
+
+/**
+ * Classe marcadora lida pelo CSS do componente (`styles`): no hover, pinta o
+ * background com a própria `--btn-color` (a `color` do botão) a 16% —
+ * mesma técnica do `color-mix` usado em `bg-scene`. Só faz sentido pra
+ * variantes sem fundo sólido próprio (outlined/text/iconOnly) — `filled` já
+ * tem cor de fundo e usa `hover:brightness-90` em vez disso.
+ */
+const HOVER_TINT = 'hover-tint'
 
 /** Estrutura (borda/fundo/hover) de cada variante — a cor em si vem de `color`/`textColor`. */
 const VARIANT_STRUCTURE: Record<ButtonVariant, string> = {
   filled: 'border-0 hover:brightness-90',
-  outlined: 'border border-solid bg-transparent hover:brightness-90',
-  text: 'border-0 bg-transparent p-0 hover:underline',
+  outlined: `border border-solid bg-transparent ${HOVER_TINT}`,
+  text: `border-0 bg-transparent p-0 hover:underline ${HOVER_TINT}`,
 }
 
 /** Altura + padding + fonte para filled/outlined. */
@@ -78,6 +87,11 @@ const GLYPH: Record<ButtonSize, string> = {
   standalone: true,
   imports: [MatIconModule, MatTooltipModule],
   templateUrl: './button.component.html',
+  styles: `
+    .${HOVER_TINT}:hover {
+      background-color: color-mix(in oklab, var(--btn-color) 16%, transparent);
+    }
+  `,
 })
 export class ButtonComponent {
   @Input() variant: ButtonVariant = 'filled'
@@ -103,7 +117,7 @@ export class ButtonComponent {
     if (this.iconOnly) {
       return [
         BASE,
-        'shrink-0 border-0 bg-transparent hover:bg-black/5',
+        `shrink-0 border-0 bg-transparent ${HOVER_TINT}`,
         ICON_ONLY_SIZE[this.size],
         this.extraClass,
       ]
@@ -125,13 +139,15 @@ export class ButtonComponent {
   }
 
   get computedStyle(): Record<string, string> {
+    // --btn-color alimenta o color-mix() do hover (ver `styles` do @Component).
+    const base = { '--btn-color': this.color }
     if (this.iconOnly || this.variant === 'text') {
-      return { color: this.textColor ?? this.color }
+      return { ...base, color: this.textColor ?? this.color }
     }
     if (this.variant === 'outlined') {
-      return { 'border-color': this.color, color: this.textColor ?? this.color }
+      return { ...base, 'border-color': this.color, color: this.textColor ?? this.color }
     }
-    return { 'background-color': this.color, color: this.textColor ?? '#ffffff' }
+    return { ...base, 'background-color': this.color, color: this.textColor ?? '#ffffff' }
   }
 
   get glyphClass(): string {
