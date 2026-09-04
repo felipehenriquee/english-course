@@ -12,6 +12,7 @@ import { CoursesModule } from '@/features/courses/courses.module'
 import { UnitsModule } from '@/features/units/units.module'
 import { LessonsModule } from '@/features/lessons/lessons.module'
 import { HealthModule } from '@/features/health/health.module'
+import { SeedModule } from '@/features/seed/seed.module'
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { HealthModule } from '@/features/health/health.module'
     UnitsModule,
     LessonsModule,
     HealthModule,
+    SeedModule,
   ],
   providers: [
     // JwtAuthGuard global: toda rota exige token, exceto as marcadas com @Public().
