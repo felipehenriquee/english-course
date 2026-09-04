@@ -25,11 +25,13 @@ export const routes: Routes = [
     children: [
       {
         path: '',
+        data: { title: 'nav.home' },
         loadComponent: () =>
           import('@app/features/home/home/home.component').then((m) => m.HomeComponent),
       },
       {
         path: 'users',
+        data: { title: 'nav.users' },
         loadComponent: () =>
           import('@app/features/users/users-list/users-list.component').then(
             (m) => m.UsersListComponent,
@@ -37,6 +39,7 @@ export const routes: Routes = [
       },
       {
         path: 'courses',
+        data: { title: 'nav.courses' },
         loadComponent: () =>
           import('@app/features/courses/courses-list/courses-list.component').then(
             (m) => m.CoursesListComponent,
@@ -44,6 +47,7 @@ export const routes: Routes = [
       },
       {
         path: 'courses/new',
+        data: { title: 'courses.form.newTitle' },
         loadComponent: () =>
           import('@app/features/courses/course-form/course-form.component').then(
             (m) => m.CourseFormComponent,
@@ -51,6 +55,7 @@ export const routes: Routes = [
       },
       {
         path: 'courses/:id',
+        data: { title: 'courses.details.title' },
         loadComponent: () =>
           import('@app/features/courses/course-detail/course-detail.component').then(
             (m) => m.CourseDetailComponent,
@@ -58,6 +63,7 @@ export const routes: Routes = [
       },
       {
         path: 'courses/:id/lessons/:lessonId',
+        data: { title: 'lessons.details.title' },
         loadComponent: () =>
           import('@app/features/lessons/lesson-detail/lesson-detail.component').then(
             (m) => m.LessonDetailComponent,
@@ -65,6 +71,7 @@ export const routes: Routes = [
       },
       {
         path: 'courses/:id/edit',
+        data: { title: 'courses.form.editTitle' },
         loadComponent: () =>
           import('@app/features/courses/course-form/course-form.component').then(
             (m) => m.CourseFormComponent,

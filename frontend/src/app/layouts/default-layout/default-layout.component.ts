@@ -1,56 +1,16 @@
-import { Component, inject, signal } from '@angular/core'
-import { RouterLink, RouterOutlet, Router } from '@angular/router'
-import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatSidenavModule } from '@angular/material/sidenav'
-import { MatListModule } from '@angular/material/list'
-import { MatIconModule } from '@angular/material/icon'
-import { MatButtonModule } from '@angular/material/button'
-import { MatMenuModule } from '@angular/material/menu'
-import { TranslocoPipe } from '@jsverse/transloco'
+import { Component } from '@angular/core'
+import { RouterOutlet } from '@angular/router'
 
-import { AuthStore } from '@app/features/auth/state/auth.store'
-import { LanguageStore } from '@app/core/i18n/language.store'
-import { environment } from '@env/environment'
+import { SidebarComponent } from '@app/layouts/default-layout/sidebar/sidebar.component'
+import { TopbarComponent } from '@app/layouts/default-layout/topbar/topbar.component'
 
-interface NavItem {
-  /** Chave de tradução (nav.*). */
-  label: string
-  icon: string
-  route: string
-}
-
+// Casca do app logado: só compõe sidebar + topbar + outlet. Cada peça é um
+// component local (ver sidebar/ e topbar/), sem estado compartilhado entre
+// elas — o conteúdo principal reflui sozinho via flexbox.
 @Component({
   selector: 'app-default-layout',
   standalone: true,
-  imports: [
-    RouterLink,
-    RouterOutlet,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    TranslocoPipe,
-  ],
+  imports: [RouterOutlet, SidebarComponent, TopbarComponent],
   templateUrl: './default-layout.component.html',
 })
-export class DefaultLayoutComponent {
-  private readonly router = inject(Router)
-  readonly authStore = inject(AuthStore)
-  readonly languageStore = inject(LanguageStore)
-
-  readonly appName = environment.appName
-  readonly sidenavOpened = signal(true)
-
-  readonly navItems: NavItem[] = [
-    { label: 'nav.home', icon: 'dashboard', route: '/' },
-    { label: 'nav.users', icon: 'group', route: '/users' },
-    { label: 'nav.courses', icon: 'school', route: '/courses' },
-  ]
-
-  async logout(): Promise<void> {
-    await this.authStore.logout()
-    this.router.navigate(['/login'])
-  }
-}
+export class DefaultLayoutComponent {}

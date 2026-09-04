@@ -1,0 +1,42 @@
+<header class="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between px-6 py-2">
+  <span class="font-display-700 whitespace-nowrap text-[26px] text-sp-neutral-50">
+    {{ pageTitle() | transloco }}
+  </span>
+
+  <div class="flex items-center gap-1">
+    <app-button
+      iconOnly
+      extraClass="glass"
+      [color]="color.primary"
+      icon="translate"
+      [matMenuTriggerFor]="langMenu"
+      [tooltip]="'language.label' | transloco"
+    />
+    <mat-menu #langMenu="matMenu" class="glass">
+      @for (lang of languageStore.available; track lang.code) {
+        <button
+          type="button"
+          [class]="
+            lang.code === languageStore.current()
+              ? 'font-display-700 flex w-full cursor-pointer items-center gap-3 whitespace-nowrap border-0 !bg-sp-primary/20 px-3 py-2 text-left text-[12px] text-sm !text-sp-primary no-underline transition-colors'
+              : 'font-display-700 flex w-full cursor-pointer items-center gap-3 whitespace-nowrap border-0 bg-transparent px-3 py-2 text-left text-[12px] text-sm text-sp-neutral-50 no-underline transition-colors hover:!bg-sp-primary/20 hover:!text-sp-primary'
+          "
+          (click)="selectLang(lang.code)"
+        >
+          {{ lang.label }}
+        </button>
+      }
+    </mat-menu>
+
+    @if (authStore.user(); as user) {
+      <span class="mr-1 hidden text-sm text-sp-neutral-50 sm:inline">{{ user.name }}</span>
+    }
+    <app-button
+      iconOnly
+      [color]="color.primary"
+      icon="logout"
+      [tooltip]="'common.logout' | transloco"
+      (click)="logout()"
+    />
+  </div>
+</header>

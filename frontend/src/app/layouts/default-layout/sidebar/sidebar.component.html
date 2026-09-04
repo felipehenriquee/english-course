@@ -1,0 +1,37 @@
+<aside
+  class="glass sticky top-0 flex h-screen shrink-0 flex-col overflow-hidden transition-[width] duration-500 ease-in-out"
+  [class.w-60]="opened()"
+  [class.w-16]="!opened()"
+>
+  <div class="flex h-16 shrink-0 items-center px-4">
+    @if (opened()) {
+      <span class="font-display-700 whitespace-nowrap text-lg text-sp-neutral-50">SAPO</span>
+    }
+  </div>
+
+  <nav class="flex flex-1 flex-col gap-1 px-2">
+    @for (item of navItems; track item.route) {
+      <a
+        [routerLink]="item.route"
+        routerLinkActive="!bg-sp-primary/20 !text-sp-primary"
+        [routerLinkActiveOptions]="{ exact: item.exact }"
+        class="font-display-700 flex items-center gap-3 whitespace-nowrap rounded-md px-3 py-2 text-sm text-sp-neutral-50 no-underline transition-colors hover:!bg-sp-primary/20 hover:!text-sp-primary"
+      >
+        <mat-icon>{{ item.icon }}</mat-icon>
+        @if (opened()) {
+          <span>{{ item.label | transloco }}</span>
+        }
+      </a>
+    }
+  </nav>
+
+  <div class="mb-2 flex justify-center">
+    <app-button
+      iconOnly
+      [color]="color.primary"
+      [icon]="opened() ? 'chevron_left' : 'chevron_right'"
+      [tooltip]="(opened() ? 'nav.collapse' : 'nav.expand') | transloco"
+      (click)="opened.set(!opened())"
+    />
+  </div>
+</aside>

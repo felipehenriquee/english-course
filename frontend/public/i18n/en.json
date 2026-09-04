@@ -22,7 +22,9 @@
   "nav": {
     "home": "Home",
     "users": "Users",
-    "courses": "Courses"
+    "courses": "Courses",
+    "collapse": "Collapse menu",
+    "expand": "Expand menu"
   },
   "login": {
     "eyebrow": "Admin panel",
