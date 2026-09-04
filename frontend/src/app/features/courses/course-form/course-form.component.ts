@@ -1,11 +1,12 @@
 import { Component, Input, OnInit, inject, signal } from '@angular/core'
-import { Router, RouterLink } from '@angular/router'
+import { Router } from '@angular/router'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
-import { MatButtonModule } from '@angular/material/button'
-import { MatIconModule } from '@angular/material/icon'
 import { TranslocoPipe } from '@jsverse/transloco'
 
 import { InputComponent } from '@app/shared/components/input/input.component'
+import { ButtonComponent } from '@app/shared/components/button/button.component'
+import { DetailHeaderComponent } from '@app/shared/components/detail-header/detail-header.component'
+import { color } from '@app/core/constants/colors'
 import { CoursesStore } from '@app/features/courses/state/courses.store'
 import type { CreateCoursePayload } from '@app/features/courses/models/course.model'
 
@@ -18,11 +19,10 @@ import type { CreateCoursePayload } from '@app/features/courses/models/course.mo
   selector: 'app-course-form',
   standalone: true,
   imports: [
-    RouterLink,
     ReactiveFormsModule,
     InputComponent,
-    MatButtonModule,
-    MatIconModule,
+    ButtonComponent,
+    DetailHeaderComponent,
     TranslocoPipe,
   ],
   templateUrl: './course-form.component.html',
@@ -31,6 +31,8 @@ export class CourseFormComponent implements OnInit {
   private readonly fb = inject(FormBuilder)
   private readonly router = inject(Router)
   private readonly coursesStore = inject(CoursesStore)
+
+  readonly color = color
 
   /** Presente só em /courses/:id/edit. */
   @Input() id?: string
@@ -44,6 +46,10 @@ export class CourseFormComponent implements OnInit {
 
   get isEdit(): boolean {
     return !!this.id
+  }
+
+  cancel(): void {
+    this.router.navigate(['/courses'])
   }
 
   async ngOnInit(): Promise<void> {

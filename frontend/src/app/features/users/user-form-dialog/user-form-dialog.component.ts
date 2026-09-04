@@ -4,10 +4,11 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatSelectModule } from '@angular/material/select'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import { MatButtonModule } from '@angular/material/button'
 import { TranslocoPipe } from '@jsverse/transloco'
 
 import { InputComponent } from '@app/shared/components/input/input.component'
+import { ButtonComponent } from '@app/shared/components/button/button.component'
+import { color } from '@app/core/constants/colors'
 import type { CreateUserPayload, User } from '@app/features/users/models/user.model'
 
 export interface UserFormDialogData {
@@ -23,13 +24,15 @@ export interface UserFormDialogData {
     MatFormFieldModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatButtonModule,
     InputComponent,
+    ButtonComponent,
     TranslocoPipe,
   ],
   templateUrl: './user-form-dialog.component.html',
 })
 export class UserFormDialogComponent {
+  readonly color = color
+
   private readonly fb = inject(FormBuilder)
   private readonly dialogRef = inject(MatDialogRef<UserFormDialogComponent>)
   readonly data = inject<UserFormDialogData>(MAT_DIALOG_DATA)

@@ -160,3 +160,33 @@ body {
   --mat-expansion-header-description-color: #d4dae3;
   --mat-expansion-header-indicator-color: #fafafc;
 }
+
+/*
+ * MatDialog (user-form-dialog) — o `panelClass: 'glass'` passado em
+ * `dialog.open()` cai num ancestral do `.mat-mdc-dialog-surface` (o painel
+ * do CDK overlay), não no elemento que pinta o fundo — por isso o seletor
+ * descendente, não composto. `color`/`font-family` soltos aqui cobrem
+ * qualquer texto sem token próprio (ex: label do mat-slide-toggle), via
+ * herança normal de CSS.
+ */
+.glass .mat-mdc-dialog-surface {
+  background: linear-gradient(180deg, oklch(1 0 0 / 7%), oklch(1 0 0 / 3%));
+  border: 1px solid oklch(1 0 0 / 10%);
+  backdrop-filter: blur(18px);
+  color: #fafafc;
+  font-family: 'Manrope', sans-serif;
+
+  --mdc-dialog-subhead-color: #fafafc;
+  --mdc-dialog-subhead-font: 'Space Grotesk', sans-serif;
+  --mdc-dialog-subhead-weight: 700;
+  --mdc-dialog-supporting-text-color: #fafafc;
+  --mdc-dialog-supporting-text-font: 'Manrope', sans-serif;
+
+  --mdc-outlined-text-field-label-text-color: #d4dae3;
+  --mdc-outlined-text-field-outline-color: #dbf24e;
+  --mdc-outlined-text-field-hover-outline-color: #dbf24e;
+  --mdc-outlined-text-field-focus-outline-color: #dbf24e;
+  --mat-select-enabled-trigger-text-color: #fafafc;
+  --mat-select-enabled-arrow-color: #dbf24e;
+  --mat-select-placeholder-text-color: #d4dae3;
+}

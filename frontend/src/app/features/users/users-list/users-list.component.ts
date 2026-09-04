@@ -61,7 +61,7 @@ export class UsersListComponent implements OnInit {
   private openDialog(user: User | null): void {
     const ref = this.dialog.open<UserFormDialogComponent, UserFormDialogData, CreateUserPayload>(
       UserFormDialogComponent,
-      { width: '420px', data: { user } },
+      { width: '420px', data: { user }, panelClass: 'glass' },
     )
 
     ref.afterClosed().subscribe((payload) => {
