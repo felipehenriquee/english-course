@@ -10,11 +10,10 @@
       [formControl]="searchControl"
     />
 
-    @if (addRoute) {
-      <a mat-flat-button color="primary" [routerLink]="addRoute">
-        <mat-icon>add</mat-icon>
+    @if (addRoute || showAdd) {
+      <app-button [icon]="Icon.Add" [textColor]="color.neutral800" (click)="goToAdd()">
         {{ addLabel ?? ('common.add' | transloco) }}
-      </a>
+      </app-button>
     }
   </div>
 
@@ -22,22 +21,34 @@
     <div class="mb-4 rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{{ error }}</div>
   }
 
-  <div class="rounded-lg border border-slate-200 bg-white">
+  <div class="glass overflow-hidden rounded-lg">
     @if (loading) {
       <mat-progress-bar mode="indeterminate" />
     }
 
-    <table mat-table [dataSource]="rows" class="w-full">
+    <table
+      mat-table
+      [dataSource]="rows"
+      class="w-full"
+      style="
+        --mat-table-background-color: transparent;
+        --mat-table-header-headline-color: #fafafc;
+        --mat-table-header-headline-font: 'Manrope', sans-serif;
+        --mat-table-header-headline-weight: 400;
+        --mat-table-row-item-label-text-color: #fafafc;
+        --mat-table-row-item-label-text-font: 'Manrope', sans-serif;
+      "
+    >
       @for (column of columns; track column.key) {
         <ng-container [matColumnDef]="column.key">
           <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
           <td mat-cell *matCellDef="let row">
             @if (column.clickable) {
               <app-button variant="text" [color]="color.primary700" (click)="rowClick.emit(row)">
-                {{ cell(row, column.key) }}
+                {{ displayValue(row, column) }}
               </app-button>
             } @else {
-              {{ cell(row, column.key) }}
+              {{ displayValue(row, column) }}
             }
           </td>
         </ng-container>

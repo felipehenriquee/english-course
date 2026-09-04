@@ -1,12 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core'
-import { MatTableModule } from '@angular/material/table'
-import { MatButtonModule } from '@angular/material/button'
-import { MatIconModule } from '@angular/material/icon'
-import { MatChipsModule } from '@angular/material/chips'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
-import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco'
 
+import {
+  ResourceColumn,
+  ResourceListComponent,
+} from '@app/shared/components/resource-list/resource-list.component'
 import { UsersStore } from '@app/features/users/state/users.store'
 import {
   UserFormDialogComponent,
@@ -17,15 +16,7 @@ import type { CreateUserPayload, User } from '@app/features/users/models/user.mo
 @Component({
   selector: 'app-users-list',
   standalone: true,
-  imports: [
-    MatTableModule,
-    MatButtonModule,
-    MatIconModule,
-    MatChipsModule,
-    MatDialogModule,
-    MatProgressBarModule,
-    TranslocoPipe,
-  ],
+  imports: [ResourceListComponent, MatDialogModule, TranslocoPipe],
   templateUrl: './users-list.component.html',
 })
 export class UsersListComponent implements OnInit {
@@ -33,10 +24,30 @@ export class UsersListComponent implements OnInit {
   private readonly dialog = inject(MatDialog)
   private readonly transloco = inject(TranslocoService)
 
-  readonly displayedColumns = ['name', 'email', 'role', 'active', 'actions']
+  get columns(): ResourceColumn<User>[] {
+    return [
+      { key: 'name', label: this.transloco.translate('users.columns.name') },
+      { key: 'email', label: this.transloco.translate('users.columns.email') },
+      {
+        key: 'role',
+        label: this.transloco.translate('users.columns.role'),
+        format: (user) => this.transloco.translate('users.roles.' + user.role),
+      },
+      {
+        key: 'active',
+        label: this.transloco.translate('users.columns.status'),
+        format: (user) =>
+          this.transloco.translate(user.active ? 'users.status.active' : 'users.status.inactive'),
+      },
+    ]
+  }
 
   ngOnInit(): void {
     this.usersStore.fetchAll()
+  }
+
+  applySearch(term: string): void {
+    this.usersStore.fetchAll(term)
   }
 
   openCreate(): void {

@@ -1,11 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core'
-import { RouterLink } from '@angular/router'
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  booleanAttribute,
+  inject,
+} from '@angular/core'
+import { Router } from '@angular/router'
 import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { debounceTime, distinctUntilChanged } from 'rxjs'
 import { MatTableModule } from '@angular/material/table'
-import { MatButtonModule } from '@angular/material/button'
-import { MatIconModule } from '@angular/material/icon'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { TranslocoPipe } from '@jsverse/transloco'
 
@@ -21,6 +27,8 @@ export interface ResourceColumn<T> {
   label: string
   /** Renderiza o valor como link; ao clicar emite (rowClick). */
   clickable?: boolean
+  /** Formata o valor exibido (ex: traduzir um enum). Sem isso, stringify simples. */
+  format?: (row: T) => string
 }
 
 const ACTIONS_COLUMN = '__actions__'
@@ -38,11 +46,8 @@ const ACTIONS_COLUMN = '__actions__'
   selector: 'app-resource-list',
   standalone: true,
   imports: [
-    RouterLink,
     ReactiveFormsModule,
     MatTableModule,
-    MatButtonModule,
-    MatIconModule,
     MatProgressBarModule,
     TranslocoPipe,
     ButtonComponent,
@@ -59,8 +64,10 @@ export class ResourceListComponent<T extends { id: string | number }> implements
   @Input() error: string | null = null
   /** Sem valor, usa a tradução `common.add`. */
   @Input() addLabel?: string
-  /** routerLink do botão de adicionar. Sem valor, o botão some. */
+  /** routerLink do botão de adicionar. Sem valor (e sem `showAdd`), o botão some. */
   @Input() addRoute: string | (string | number)[] | null = null
+  /** Mostra o botão de adicionar sem navegar — o clique só emite `(add)` (ex: abrir um dialog). */
+  @Input({ transform: booleanAttribute }) showAdd = false
   /** Sem valor, usa a tradução `common.search`. */
   @Input() searchPlaceholder?: string
   /** Sem valor, usa a tradução `common.empty`. */
@@ -69,10 +76,14 @@ export class ResourceListComponent<T extends { id: string | number }> implements
 
   /** Termo de busca, já com debounce. */
   @Output() searchChange = new EventEmitter<string>()
+  /** Clique no botão de adicionar quando não há `addRoute` (ver `showAdd`). */
+  @Output() add = new EventEmitter<void>()
   /** Clique no valor de uma coluna marcada como `clickable`. */
   @Output() rowClick = new EventEmitter<T>()
   @Output() edit = new EventEmitter<T>()
   @Output() remove = new EventEmitter<T>()
+
+  private readonly router = inject(Router)
 
   readonly searchControl = new FormControl('', { nonNullable: true })
   readonly actionsColumn = ACTIONS_COLUMN
@@ -95,5 +106,17 @@ export class ResourceListComponent<T extends { id: string | number }> implements
   cell(row: T, key: Extract<keyof T, string>): string {
     const value = row[key]
     return value === null || value === undefined || value === '' ? '—' : String(value)
+  }
+
+  displayValue(row: T, column: ResourceColumn<T>): string {
+    return column.format ? column.format(row) : this.cell(row, column.key)
+  }
+
+  goToAdd(): void {
+    if (this.addRoute) {
+      this.router.navigate(Array.isArray(this.addRoute) ? this.addRoute : [this.addRoute])
+    } else {
+      this.add.emit()
+    }
   }
 }

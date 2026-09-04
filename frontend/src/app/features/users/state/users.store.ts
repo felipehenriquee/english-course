@@ -1,8 +1,12 @@
 import { Injectable, inject, signal } from '@angular/core'
 import { firstValueFrom } from 'rxjs'
 import { UserService } from '@app/features/users/services/user.service'
-import type { CreateUserPayload, UpdateUserPayload, User } from '@app/features/users/models/user.model'
-import type { PaginatedResponse } from '@app/core/models/api.model'
+import type {
+  CreateUserPayload,
+  UpdateUserPayload,
+  User,
+} from '@app/features/users/models/user.model'
+import type { PaginatedResponse, QueryParams } from '@app/core/models/api.model'
 
 function isPaginated(res: User[] | PaginatedResponse<User>): res is PaginatedResponse<User> {
   return !Array.isArray(res)
@@ -25,11 +29,15 @@ export class UsersStore {
   readonly loading = this._loading.asReadonly()
   readonly error = this._error.asReadonly()
 
-  async fetchAll(): Promise<void> {
+  /** Lista os usuários; `search` filtra por nome/e-mail (via ?search= na API). */
+  async fetchAll(search?: string): Promise<void> {
     this._loading.set(true)
     this._error.set(null)
     try {
-      const res = await firstValueFrom(this.userService.getAll())
+      const params: QueryParams = {}
+      const term = search?.trim()
+      if (term) params['search'] = term
+      const res = await firstValueFrom(this.userService.getAll(params))
       this._items.set(isPaginated(res) ? res.data : res)
     } catch (err) {
       this._error.set((err as Error).message)
