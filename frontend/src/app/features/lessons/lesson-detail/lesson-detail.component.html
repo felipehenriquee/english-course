@@ -50,12 +50,13 @@
 
         @if (content) {
           <div
-            class="jodit-wysiwyg rounded-lg border border-slate-200 bg-white p-4"
+            class="jodit-wysiwyg rounded-lg bg-white p-4"
+            style="border: 1px solid rgba(0, 0, 0, 0.103)"
             [innerHTML]="safeContent"
           ></div>
         } @else {
           <div
-            class="rounded-lg border border-slate-200 bg-white p-4 text-center text-sm text-slate-500"
+            class="rounded-lg border border-black bg-white p-4 text-center text-sm text-slate-500"
           >
             {{ 'lessons.contentEmpty' | transloco }}
           </div>
