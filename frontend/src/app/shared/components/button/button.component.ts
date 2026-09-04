@@ -3,40 +3,24 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 
 import { Icon } from '@app/shared/icon.enum'
+import { color } from '@app/core/constants/colors'
 
 export type ButtonVariant = 'text' | 'filled' | 'outlined'
-export type ButtonColor = 'primary' | 'accent' | 'warn' | 'neutral'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
 // preflight do Tailwind está DESLIGADO neste projeto (tailwind.config.ts), então
 // cada variante zera explicitamente `border`/`background`/`padding` do <button>.
 const BASE =
-  'inline-flex items-center justify-center gap-1.5 appearance-none cursor-pointer align-middle ' +
-  'font-medium leading-none transition-colors focus:outline-none focus-visible:ring-2 ' +
-  'focus-visible:ring-brand-500 focus-visible:ring-offset-1 disabled:opacity-50 ' +
-  'disabled:pointer-events-none disabled:cursor-default'
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium ' +
+  'font-display-700 !text-[16px] cursor-pointer transition-colors focus-visible:outline-none ' +
+  'focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 ' +
+  'disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0'
 
-const VARIANT_COLOR: Record<ButtonVariant, Record<ButtonColor, string>> = {
-  filled: {
-    primary: 'border-0 bg-brand-600 text-white hover:bg-brand-700',
-    accent: 'border-0 bg-violet-600 text-white hover:bg-violet-700',
-    warn: 'border-0 bg-red-600 text-white hover:bg-red-700',
-    neutral: 'border-0 bg-slate-700 text-white hover:bg-slate-800',
-  },
-  outlined: {
-    primary: 'border border-solid border-brand-600 bg-transparent text-brand-700 hover:bg-brand-50',
-    accent:
-      'border border-solid border-violet-600 bg-transparent text-violet-700 hover:bg-violet-50',
-    warn: 'border border-solid border-red-600 bg-transparent text-red-700 hover:bg-red-50',
-    neutral:
-      'border border-solid border-slate-400 bg-transparent text-slate-700 hover:bg-slate-100',
-  },
-  text: {
-    primary: 'border-0 bg-transparent p-0 text-brand-600 hover:underline',
-    accent: 'border-0 bg-transparent p-0 text-violet-600 hover:underline',
-    warn: 'border-0 bg-transparent p-0 text-red-600 hover:underline',
-    neutral: 'border-0 bg-transparent p-0 text-slate-700 hover:underline',
-  },
+/** Estrutura (borda/fundo/hover) de cada variante — a cor em si vem de `color`/`textColor`. */
+const VARIANT_STRUCTURE: Record<ButtonVariant, string> = {
+  filled: 'border-0 hover:brightness-90',
+  outlined: 'border border-solid bg-transparent hover:brightness-90',
+  text: 'border-0 bg-transparent p-0 hover:underline',
 }
 
 /** Altura + padding + fonte para filled/outlined. */
@@ -60,13 +44,6 @@ const ICON_ONLY_SIZE: Record<ButtonSize, string> = {
   lg: 'h-12 w-12 rounded-full',
 }
 
-const ICON_ONLY_COLOR: Record<ButtonColor, string> = {
-  primary: 'text-brand-700 hover:bg-brand-50',
-  accent: 'text-violet-700 hover:bg-violet-50',
-  warn: 'text-red-700 hover:bg-red-50',
-  neutral: 'text-slate-600 hover:bg-slate-100',
-}
-
 const GLYPH: Record<ButtonSize, string> = {
   sm: '!h-[18px] !w-[18px] !text-[18px]',
   md: '!h-[20px] !w-[20px] !text-[20px]',
@@ -77,12 +54,21 @@ const GLYPH: Record<ButtonSize, string> = {
  * Botão da aplicação.
  *
  * - `variant`: `text` (sem fundo, vira link) · `filled` (com fundo) · `outlined`.
- * - `color`: `primary` · `accent` · `warn` · `neutral`.
+ * - `color`: cor CSS (hex/rgb/nome) — normalmente uma das `color.*` de
+ *   `@app/core/constants/colors` (ex: `color.primary`, `color.danger700`).
+ *   Vira `background-color` (filled), `border-color`+`color` (outlined) ou
+ *   `color` (text/iconOnly). Default: `color.primary`.
+ * - `textColor`: sobrescreve só o texto/ícone (ex: pra manter texto escuro
+ *   sobre um fundo `filled` claro, como `color.primary`).
  * - `size`: `sm` · `md` · `lg`.
  * - `icon`: só aparece se informado (`Icon.Edit`); `iconPosition` left/right.
  * - `iconOnly`: botão redondo só com o ícone.
  * - `tooltip`: só aparece se informado.
- * - `textColor`: sobrescreve a cor do texto/ícone (qualquer cor CSS).
+ * - `pill`: cantos totalmente arredondados.
+ * - `extraClass`: classes extras no `<button>` interno (ex: altura pontual).
+ *
+ * Fonte é sempre Space Grotesk 700 / 16px (`BASE`) — não é por `size`, então
+ * não muda entre `sm`/`md`/`lg`.
  *
  * O texto vai por projeção: `<app-button>Salvar</app-button>`.
  * O clique é capturado normalmente com `(click)` no `<app-button>`.
@@ -95,26 +81,34 @@ const GLYPH: Record<ButtonSize, string> = {
 })
 export class ButtonComponent {
   @Input() variant: ButtonVariant = 'filled'
-  @Input() color: ButtonColor = 'primary'
+  @Input() color: string = color.primary
   @Input() size: ButtonSize = 'md'
   @Input() tooltip?: string
   @Input() icon?: Icon | string
   @Input() iconPosition: 'left' | 'right' = 'left'
   @Input({ transform: booleanAttribute }) iconOnly = false
-  /** Sobrescreve a cor do texto/ícone (ex: `#2563eb`, `red`). */
+  /** Sobrescreve a cor do texto/ícone (ex: `color.neutral900`, `#fff`). */
   @Input() textColor?: string
   @Input() type: 'button' | 'submit' | 'reset' = 'button'
   @Input({ transform: booleanAttribute }) disabled = false
   @Input({ transform: booleanAttribute }) fullWidth = false
+  /** Cantos totalmente arredondados (pill), no lugar do `rounded-md`/`rounded` padrão. */
+  @Input({ transform: booleanAttribute }) pill = false
+  /** Classes extras aplicadas no `<button>` interno (ex: fonte/altura pontuais). Use `!` pra vencer `size`. */
+  @Input() extraClass = ''
+  /** Ex: `-1` pra tirar do fluxo de tab (botão auxiliar dentro de outro control). */
+  @Input() tabIndex?: number
 
   get computedClass(): string {
     if (this.iconOnly) {
       return [
         BASE,
-        'shrink-0 border-0 bg-transparent',
+        'shrink-0 border-0 bg-transparent hover:bg-black/5',
         ICON_ONLY_SIZE[this.size],
-        ICON_ONLY_COLOR[this.color],
-      ].join(' ')
+        this.extraClass,
+      ]
+        .filter(Boolean)
+        .join(' ')
     }
 
     const sizeClass = this.variant === 'text' ? TEXT_SIZE[this.size] : SIZE[this.size]
@@ -122,10 +116,22 @@ export class ButtonComponent {
       BASE,
       this.fullWidth ? 'w-full' : '',
       sizeClass,
-      VARIANT_COLOR[this.variant][this.color],
+      VARIANT_STRUCTURE[this.variant],
+      this.pill ? '!rounded-full' : '',
+      this.extraClass,
     ]
       .filter(Boolean)
       .join(' ')
+  }
+
+  get computedStyle(): Record<string, string> {
+    if (this.iconOnly || this.variant === 'text') {
+      return { color: this.textColor ?? this.color }
+    }
+    if (this.variant === 'outlined') {
+      return { 'border-color': this.color, color: this.textColor ?? this.color }
+    }
+    return { 'background-color': this.color, color: this.textColor ?? '#ffffff' }
   }
 
   get glyphClass(): string {
