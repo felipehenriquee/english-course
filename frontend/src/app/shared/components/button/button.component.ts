@@ -29,7 +29,7 @@ const HOVER_TINT = 'hover-tint'
 const VARIANT_STRUCTURE: Record<ButtonVariant, string> = {
   filled: 'border-0 hover:brightness-90',
   outlined: `border border-solid bg-transparent ${HOVER_TINT}`,
-  text: `border-0 bg-transparent p-0 hover:underline ${HOVER_TINT}`,
+  text: `border-0 bg-transparent p-0 ${HOVER_TINT}`,
 }
 
 /** Altura + padding + fonte para filled/outlined. */
@@ -133,6 +133,7 @@ export class ButtonComponent {
       VARIANT_STRUCTURE[this.variant],
       this.pill ? '!rounded-full' : '',
       this.extraClass,
+      'p-2',
     ]
       .filter(Boolean)
       .join(' ')
