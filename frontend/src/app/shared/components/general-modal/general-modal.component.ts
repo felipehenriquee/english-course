@@ -13,9 +13,10 @@ import {
 import { Overlay, OverlayRef } from '@angular/cdk/overlay'
 import { TemplatePortal } from '@angular/cdk/portal'
 import { A11yModule } from '@angular/cdk/a11y'
-import { MatButtonModule } from '@angular/material/button'
-import { MatIconModule } from '@angular/material/icon'
 import { TranslocoPipe } from '@jsverse/transloco'
+
+import { ButtonComponent } from '@app/shared/components/button/button.component'
+import { color } from '@app/core/constants/colors'
 
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl'
 
@@ -33,10 +34,12 @@ export type ModalSize = 'sm' | 'md' | 'lg' | 'xl'
 @Component({
   selector: 'app-general-modal',
   standalone: true,
-  imports: [A11yModule, MatButtonModule, MatIconModule, TranslocoPipe],
+  imports: [A11yModule, ButtonComponent, TranslocoPipe],
   templateUrl: './general-modal.component.html',
 })
 export class GeneralModalComponent implements OnInit, OnDestroy {
+  readonly color = color
+
   private readonly overlay = inject(Overlay)
   private readonly viewContainerRef = inject(ViewContainerRef)
 

@@ -4,22 +4,22 @@
     role="dialog"
     aria-modal="true"
     [attr.aria-label]="title"
-    class="flex max-h-[85vh] w-[92vw] flex-col overflow-hidden rounded-lg bg-white shadow-xl"
+    class="glass flex max-h-[85vh] w-[92vw] flex-col overflow-hidden rounded-lg shadow-xl"
     [class.max-w-sm]="size === 'sm'"
     [class.max-w-md]="size === 'md'"
     [class.max-w-2xl]="size === 'lg'"
     [class.max-w-4xl]="size === 'xl'"
   >
-    <header class="flex items-center justify-between gap-4 border-b border-slate-200 px-4 py-3">
-      <h2 class="text-lg font-semibold">{{ title }}</h2>
-      <button
-        mat-icon-button
-        type="button"
-        [attr.aria-label]="'common.close' | transloco"
+    <header class="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-3">
+      <h2 class="font-display-700 text-lg text-sp-neutral-50">{{ title }}</h2>
+      <app-button
+        iconOnly
+        size="sm"
+        [color]="color.neutral50"
+        icon="close"
+        [tooltip]="'common.close' | transloco"
         (click)="closed.emit()"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
+      />
     </header>
 
     <div class="flex-1 overflow-y-auto px-4 py-4">
@@ -27,19 +27,18 @@
     </div>
 
     @if (showFooter) {
-      <footer class="flex justify-end gap-2 border-t border-slate-200 px-4 py-3">
-        <button mat-button type="button" (click)="cancelled.emit()">
+      <footer class="flex justify-end gap-2 border-t border-white/10 px-4 py-3">
+        <app-button variant="text" [color]="color.neutral50" (click)="cancelled.emit()">
           {{ cancelLabel ?? ('common.cancel' | transloco) }}
-        </button>
-        <button
-          mat-flat-button
-          color="primary"
-          type="button"
+        </app-button>
+        <app-button
+          [color]="color.primary"
+          [textColor]="color.neutral900"
           [disabled]="saving"
           (click)="save.emit()"
         >
           {{ saveLabel ?? ('common.save' | transloco) }}
-        </button>
+        </app-button>
       </footer>
     }
   </div>
