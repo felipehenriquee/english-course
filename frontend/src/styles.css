@@ -13,6 +13,34 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Aliases usados pelas utilities abaixo (bg-scene/glass/glass-2). */
+  --accent: #dbf24e; /* sp-primary */
+  --primary: #345efc; /* sp-secondary */
+  --background: oklch(0.16 0.03 267);
+}
+
+@layer utilities {
+  .bg-scene {
+    background:
+      radial-gradient(1100px 520px at 82% -8%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 60%),
+      radial-gradient(950px 640px at -12% 18%, color-mix(in oklab, var(--primary) 30%, transparent), transparent 55%),
+      linear-gradient(135deg, oklch(0.18 0.032 266) 0%, var(--background) 60%, oklch(0.17 0.028 268) 100%);
+  }
+
+  .glass {
+    background: linear-gradient(180deg, oklch(1 0 0 / 7%), oklch(1 0 0 / 3%));
+    border: 1px solid oklch(1 0 0 / 10%);
+    backdrop-filter: blur(18px);
+  }
+
+  .glass-2 {
+    background: linear-gradient(180deg, oklch(1 0 0 / 5%), oklch(1 0 0 / 2%));
+    border: 1px solid oklch(1 0 0 / 8%);
+    backdrop-filter: blur(14px);
+  }
+}
+
 html,
 body {
   height: 100%;
