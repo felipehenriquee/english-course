@@ -1,8 +1,8 @@
 {
-  "name": "english-course",
+  "name": "sapo",
   "version": "0.0.0",
   "private": true,
-  "description": "Monorepo: Angular frontend + NestJS backend",
+  "description": "SAPO — Sistema Acadêmico e Pedagógico Online (monorepo: Angular frontend + NestJS backend)",
   "scripts": {
     "prepare": "husky",
     "dev": "concurrently -k -n back,front -c blue,green \"npm:dev:back\" \"npm:dev:front\"",

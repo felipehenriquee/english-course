@@ -1,4 +1,6 @@
-# English Course — monorepo
+# SAPO — monorepo
+
+**SAPO** — Sistema Acadêmico e Pedagógico Online (Online Academic and Pedagogical System).
 
 Two independent apps in one repo:
 

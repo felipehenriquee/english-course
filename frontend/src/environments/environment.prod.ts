@@ -4,5 +4,5 @@
 export const environment = {
   production: true,
   apiBaseUrl: 'https://api.exemplo.com/api',
-  appName: 'English Course',
+  appName: 'SAPO',
 }
