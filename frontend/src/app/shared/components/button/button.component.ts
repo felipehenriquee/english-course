@@ -95,7 +95,13 @@ const GLYPH: Record<ButtonSize, string> = {
 })
 export class ButtonComponent {
   @Input() variant: ButtonVariant = 'filled'
-  @Input() color: string = color.primary
+  /**
+   * Sem valor, cai no getter `resolvedColor` (default `color.primary`) — não
+   * dá pra usar `= color.primary` direto como valor padrão do `@Input()`:
+   * isso rodaria só uma vez, na criação do componente, e não reagiria mais
+   * a trocas de tema depois (`color.primary` é um getter reativo).
+   */
+  @Input() color?: string
   @Input() size: ButtonSize = 'md'
   @Input() tooltip?: string
   @Input() icon?: Icon | string
@@ -139,16 +145,24 @@ export class ButtonComponent {
       .join(' ')
   }
 
+  private get resolvedColor(): string {
+    return this.color ?? color.primary
+  }
+
   get computedStyle(): Record<string, string> {
     // --btn-color alimenta o color-mix() do hover (ver `styles` do @Component).
-    const base = { '--btn-color': this.color }
+    const base = { '--btn-color': this.resolvedColor }
     if (this.iconOnly || this.variant === 'text') {
-      return { ...base, color: this.textColor ?? this.color }
+      return { ...base, color: this.textColor ?? this.resolvedColor }
     }
     if (this.variant === 'outlined') {
-      return { ...base, 'border-color': this.color, color: this.textColor ?? this.color }
+      return {
+        ...base,
+        'border-color': this.resolvedColor,
+        color: this.textColor ?? this.resolvedColor,
+      }
     }
-    return { ...base, 'background-color': this.color, color: this.textColor ?? '#ffffff' }
+    return { ...base, 'background-color': this.resolvedColor, color: this.textColor ?? '#ffffff' }
   }
 
   get glyphClass(): string {

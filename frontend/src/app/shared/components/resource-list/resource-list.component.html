@@ -9,7 +9,12 @@
     />
 
     @if (addRoute || showAdd) {
-      <app-button [icon]="Icon.Add" [textColor]="color.inkOnAccent" (click)="goToAdd()">
+      <app-button
+        [icon]="Icon.Add"
+        [color]="color.primary"
+        [textColor]="color.inkOnAccent"
+        (click)="goToAdd()"
+      >
         {{ addLabel ?? ('common.add' | transloco) }}
       </app-button>
     }
