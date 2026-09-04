@@ -1,6 +1,6 @@
-<div class="bg-scene flex min-h-screen items-center justify-center px-4">
-  <app-card class="tilt-a w-full max-w-md rounded-3xl p-8">
-    <div class="-rotate-[-1.4deg]">
+<div class="flex min-h-screen items-center justify-center px-4">
+  <app-card class="w-full max-w-md rounded-3xl p-8">
+    <div>
       <div class="text-left">
         <p class="text-[11px] uppercase text-sp-neutral-600">{{ 'login.eyebrow' | transloco }}</p>
         <h1 class="font-display-700 text-[30px] !tracking-tight text-sp-neutral-50">
@@ -20,14 +20,14 @@
           class="flex flex-col gap-3"
           style="
             --mat-form-field-container-text-font: 'Manrope', sans-serif;
-            --mdc-filled-text-field-label-text-font: 'Manrope', sans-serif;
+            --mdc-outlined-text-field-label-text-font: 'Manrope', sans-serif;
           "
           (ngSubmit)="onSubmit()"
         >
           <app-input
             [label]="'login.email' | transloco"
             type="email"
-            appearance="fill"
+            appearance="outline"
             subscriptSizing="dynamic"
             formControlName="email"
             autocomplete="email"
@@ -37,7 +37,7 @@
           <app-input
             [label]="'login.password' | transloco"
             type="password"
-            appearance="fill"
+            appearance="outline"
             subscriptSizing="dynamic"
             formControlName="password"
             autocomplete="current-password"
@@ -53,7 +53,6 @@
             class="mt-1"
             extraClass="!h-14"
             [fullWidth]="true"
-            [pill]="true"
             [disabled]="authStore.loading()"
           >
             @if (authStore.loading()) {

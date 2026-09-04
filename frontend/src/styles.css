@@ -130,17 +130,14 @@ body {
 }
 
 /*
- * Inputs `appearance="fill"` (ex: app-input no login) ficam pill, iguais ao
- * botão. O Material trava border-bottom-*-radius em 0 no filled (deixa
- * espaço pro indicator embaixo), então --mdc-filled-text-field-container-
- * shape sozinha só arredonda o topo — por isso o !important direto nas
- * classes internas do MDC, e a altura do indicator some (senão vira uma
- * linha reta cortando a pílula).
+ * `.mat-mdc-menu-panel` já define um `background-color` próprio (mesma
+ * especificidade de uma classe só, `0,1,0`) — como esse CSS do Material é
+ * injetado em runtime pelo componente, ele acaba vencendo `.glass` sozinha
+ * na cascata. Um seletor composto (duas classes no mesmo elemento, `0,2,0`)
+ * resolve sem precisar de `!important`.
  */
-.mdc-text-field--filled,
-.mdc-text-field--filled .mdc-text-field__ripple {
-  border-radius: 9999px !important;
-}
-.mdc-text-field--filled {
-  --mdc-filled-text-field-active-indicator-height: 0;
+.mat-mdc-menu-panel.glass {
+  background: linear-gradient(180deg, oklch(1 0 0 / 7%), oklch(1 0 0 / 3%));
+  border: 1px solid oklch(1 0 0 / 10%);
+  backdrop-filter: blur(18px);
 }
