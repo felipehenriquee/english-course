@@ -26,12 +26,13 @@
         />
 
         <div class="mt-3 flex justify-end gap-2">
-          <app-button variant="outlined" color="neutral" (click)="cancelEdit()">
+          <app-button variant="outlined" [color]="color.neutral700" (click)="cancelEdit()">
             {{ 'common.cancel' | transloco }}
           </app-button>
           <app-button
             variant="filled"
-            color="primary"
+            [color]="color.primary"
+            [textColor]="color.neutral900"
             [icon]="Icon.Check"
             [disabled]="saving()"
             (click)="save()"
@@ -41,7 +42,12 @@
         </div>
       } @else {
         <div class="mb-3 flex justify-end">
-          <app-button variant="outlined" color="primary" [icon]="Icon.Edit" (click)="startEdit()">
+          <app-button
+            variant="outlined"
+            [color]="color.primary700"
+            [icon]="Icon.Edit"
+            (click)="startEdit()"
+          >
             {{ 'lessons.editContent' | transloco }}
           </app-button>
         </div>

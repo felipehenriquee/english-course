@@ -6,13 +6,13 @@ import { debounceTime, distinctUntilChanged } from 'rxjs'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatInputModule } from '@angular/material/input'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { TranslocoPipe } from '@jsverse/transloco'
 
 import { ButtonComponent } from '@app/shared/components/button/button.component'
+import { InputComponent } from '@app/shared/components/input/input.component'
 import { Icon } from '@app/shared/icon.enum'
+import { color } from '@app/core/constants/colors'
 
 export interface ResourceColumn<T> {
   /** Chave do campo no objeto da linha. */
@@ -43,11 +43,10 @@ const ACTIONS_COLUMN = '__actions__'
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatProgressBarModule,
     TranslocoPipe,
     ButtonComponent,
+    InputComponent,
   ],
   templateUrl: './resource-list.component.html',
 })
@@ -78,6 +77,7 @@ export class ResourceListComponent<T extends { id: string | number }> implements
   readonly searchControl = new FormControl('', { nonNullable: true })
   readonly actionsColumn = ACTIONS_COLUMN
   readonly Icon = Icon
+  readonly color = color
 
   displayedColumns: string[] = []
 

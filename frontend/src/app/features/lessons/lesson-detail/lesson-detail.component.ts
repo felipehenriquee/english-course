@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { ButtonComponent } from '@app/shared/components/button/button.component'
 import { RichEditorComponent } from '@app/shared/components/rich-editor/rich-editor.component'
 import { Icon } from '@app/shared/icon.enum'
+import { color } from '@app/core/constants/colors'
 import { LessonService } from '@app/features/lessons/services/lesson.service'
 import type { Lesson } from '@app/features/lessons/models/lesson.model'
 
@@ -39,6 +40,7 @@ export class LessonDetailComponent implements OnInit {
   private readonly sanitizer = inject(DomSanitizer)
 
   readonly Icon = Icon
+  readonly color = color
 
   /** Vem da rota `/courses/:id/...` — usado só pro link de voltar. */
   @Input() id?: string

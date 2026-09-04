@@ -4,15 +4,9 @@
 
 <form [formGroup]="form" (ngSubmit)="save()">
   <mat-dialog-content class="flex flex-col gap-1">
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'users.form.name' | transloco }}</mat-label>
-      <input matInput formControlName="name" />
-    </mat-form-field>
+    <app-input [label]="'users.form.name' | transloco" formControlName="name" />
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'users.form.email' | transloco }}</mat-label>
-      <input matInput type="email" formControlName="email" />
-    </mat-form-field>
+    <app-input [label]="'users.form.email' | transloco" type="email" formControlName="email" />
 
     <mat-form-field appearance="outline">
       <mat-label>{{ 'users.form.role' | transloco }}</mat-label>

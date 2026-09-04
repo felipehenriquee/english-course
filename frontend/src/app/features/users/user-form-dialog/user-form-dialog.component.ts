@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatButtonModule } from '@angular/material/button'
 import { TranslocoPipe } from '@jsverse/transloco'
 
+import { InputComponent } from '@app/shared/components/input/input.component'
 import type { CreateUserPayload, User } from '@app/features/users/models/user.model'
 
 export interface UserFormDialogData {
@@ -21,10 +21,10 @@ export interface UserFormDialogData {
     ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule,
     MatSelectModule,
     MatSlideToggleModule,
     MatButtonModule,
+    InputComponent,
     TranslocoPipe,
   ],
   templateUrl: './user-form-dialog.component.html',

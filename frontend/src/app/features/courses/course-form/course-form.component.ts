@@ -1,12 +1,11 @@
 import { Component, Input, OnInit, inject, signal } from '@angular/core'
 import { Router, RouterLink } from '@angular/router'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslocoPipe } from '@jsverse/transloco'
 
+import { InputComponent } from '@app/shared/components/input/input.component'
 import { CoursesStore } from '@app/features/courses/state/courses.store'
 import type { CreateCoursePayload } from '@app/features/courses/models/course.model'
 
@@ -21,8 +20,7 @@ import type { CreateCoursePayload } from '@app/features/courses/models/course.mo
   imports: [
     RouterLink,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
+    InputComponent,
     MatButtonModule,
     MatIconModule,
     TranslocoPipe,

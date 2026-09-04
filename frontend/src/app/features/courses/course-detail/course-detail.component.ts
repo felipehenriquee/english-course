@@ -6,13 +6,13 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatExpansionModule } from '@angular/material/expansion'
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatInputModule } from '@angular/material/input'
 
 import { ButtonComponent } from '@app/shared/components/button/button.component'
+import { InputComponent } from '@app/shared/components/input/input.component'
 import { DetailField } from '@app/shared/components/details-modal/details-modal.component'
 import { GeneralModalComponent } from '@app/shared/components/general-modal/general-modal.component'
 import { Icon } from '@app/shared/icon.enum'
+import { color } from '@app/core/constants/colors'
 import { CoursesStore } from '@app/features/courses/state/courses.store'
 import { UnitService } from '@app/features/units/services/unit.service'
 import { LessonService } from '@app/features/lessons/services/lesson.service'
@@ -39,10 +39,9 @@ type FormMode = 'unit' | 'lesson'
     MatButtonModule,
     MatIconModule,
     MatExpansionModule,
-    MatFormFieldModule,
-    MatInputModule,
     TranslocoPipe,
     ButtonComponent,
+    InputComponent,
     GeneralModalComponent,
   ],
   templateUrl: './course-detail.component.html',
@@ -56,6 +55,7 @@ export class CourseDetailComponent implements OnInit {
   private readonly transloco = inject(TranslocoService)
 
   readonly Icon = Icon
+  readonly color = color
 
   /** Vem da rota `/courses/:id` (withComponentInputBinding). */
   @Input() id?: string

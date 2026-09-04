@@ -48,7 +48,11 @@
                     <ul class="m-0 list-none divide-y divide-slate-100 p-0">
                       @for (lesson of lessons; track lesson.id) {
                         <li class="py-1">
-                          <app-button variant="text" color="primary" (click)="openLesson(lesson)">
+                          <app-button
+                            variant="text"
+                            [color]="color.primary700"
+                            (click)="openLesson(lesson)"
+                          >
                             {{ lesson.name }}
                           </app-button>
                         </li>
@@ -63,7 +67,7 @@
               <div class="mt-2 flex justify-end">
                 <app-button
                   variant="text"
-                  color="primary"
+                  [color]="color.primary700"
                   [icon]="Icon.Add"
                   (click)="openAddLesson(unit.id)"
                 >
@@ -82,7 +86,12 @@
       }
 
       <div class="mt-2 flex justify-end">
-        <app-button variant="text" color="primary" [icon]="Icon.Add" (click)="openAddUnit()">
+        <app-button
+          variant="text"
+          [color]="color.primary700"
+          [icon]="Icon.Add"
+          (click)="openAddUnit()"
+        >
           {{ 'units.add' | transloco }}
         </app-button>
       </div>
@@ -100,17 +109,12 @@
   (closed)="closeForm()"
 >
   <form [formGroup]="form" class="flex flex-col gap-1">
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'common.name' | transloco }}</mat-label>
-      <input matInput formControlName="name" />
-      @if (form.controls.name.hasError('required') && form.controls.name.touched) {
-        <mat-error>{{ 'common.required' | transloco }}</mat-error>
-      }
-    </mat-form-field>
+    <app-input
+      [label]="'common.name' | transloco"
+      formControlName="name"
+      [errorMessage]="'common.required' | transloco"
+    />
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'common.description' | transloco }}</mat-label>
-      <textarea matInput formControlName="description" rows="3"></textarea>
-    </mat-form-field>
+    <app-input [label]="'common.description' | transloco" formControlName="description" multiline />
   </form>
 </app-general-modal>
