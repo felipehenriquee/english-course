@@ -121,6 +121,12 @@
     "editContent": "Editar conteúdo",
     "contentEmpty": "Esta aula ainda não tem conteúdo.",
     "contentPlaceholder": "Escreva o conteúdo da aula…",
+    "type": "Tipo",
+    "types": {
+      "content": "Conteúdo",
+      "exercise": "Exercício"
+    },
+    "exercisePlaceholder": "Editor de exercícios em breve.",
     "details": {
       "title": "Aula",
       "name": "Nome",

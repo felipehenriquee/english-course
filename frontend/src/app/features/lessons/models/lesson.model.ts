@@ -1,11 +1,15 @@
 import type { BaseEntity } from '@app/core/models/api.model'
 
+export type LessonType = 'content' | 'exercise'
+
 /** Aula de uma unidade. name/description herdados de BaseEntity. */
 export interface Lesson extends BaseEntity {
   unitId: string
+  type: LessonType
   /**
    * Conteúdo completo da aula em HTML (editor WYSIWYG). Só presente na
-   * resposta de getById — as listagens não trazem este campo.
+   * resposta de getById — as listagens não trazem este campo. Só relevante
+   * quando `type === 'content'`.
    */
   content?: string | null
 }

@@ -121,6 +121,12 @@
     "editContent": "Edit content",
     "contentEmpty": "This lesson has no content yet.",
     "contentPlaceholder": "Write the lesson content…",
+    "type": "Type",
+    "types": {
+      "content": "Content",
+      "exercise": "Exercise"
+    },
+    "exercisePlaceholder": "Exercise editor coming soon.",
     "details": {
       "title": "Lesson",
       "name": "Name",

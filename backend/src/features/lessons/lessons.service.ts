@@ -43,7 +43,7 @@ export class LessonsService extends BaseService<Lesson> {
       where,
       // `content` (HTML da aula) pode ser grande — fica de fora da listagem,
       // só é devolvido pelo getById (herdado do BaseService).
-      select: ['id', 'name', 'description', 'unitId', 'createdAt', 'updatedAt'],
+      select: ['id', 'name', 'description', 'unitId', 'type', 'createdAt', 'updatedAt'],
       skip: (page - 1) * perPage,
       take: perPage,
       order: query.sort ? { [query.sort]: query.order ?? 'ASC' } : undefined,

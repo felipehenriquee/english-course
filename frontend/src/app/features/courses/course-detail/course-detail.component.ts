@@ -4,6 +4,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { firstValueFrom } from 'rxjs'
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco'
 import { MatExpansionModule } from '@angular/material/expansion'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatSelectModule } from '@angular/material/select'
 
 import { ButtonComponent } from '@app/shared/components/button/button.component'
 import { InputComponent } from '@app/shared/components/input/input.component'
@@ -17,6 +19,7 @@ import { UnitService } from '@app/features/units/services/unit.service'
 import { LessonService } from '@app/features/lessons/services/lesson.service'
 import type { Course, CourseUnitRef } from '@app/features/courses/models/course.model'
 import type { Unit, UnitLessonRef } from '@app/features/units/models/unit.model'
+import type { LessonType } from '@app/features/lessons/models/lesson.model'
 
 type FormMode = 'unit' | 'lesson'
 
@@ -35,6 +38,8 @@ type FormMode = 'unit' | 'lesson'
   imports: [
     ReactiveFormsModule,
     MatExpansionModule,
+    MatFormFieldModule,
+    MatSelectModule,
     TranslocoPipe,
     ButtonComponent,
     InputComponent,
@@ -69,9 +74,11 @@ export class CourseDetailComponent implements OnInit {
   readonly formMode = signal<FormMode | null>(null)
   readonly formUnitId = signal<string | null>(null)
   readonly saving = signal(false)
+  readonly lessonTypes: LessonType[] = ['content', 'exercise']
   readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required]],
     description: [''],
+    type: ['content' as LessonType, [Validators.required]],
   })
 
   async ngOnInit(): Promise<void> {
@@ -147,7 +154,7 @@ export class CourseDetailComponent implements OnInit {
       return
     }
 
-    const { name, description } = this.form.getRawValue()
+    const { name, description, type } = this.form.getRawValue()
     const payload = { name, description: description.trim() || undefined }
     this.saving.set(true)
     try {
@@ -157,7 +164,7 @@ export class CourseDetailComponent implements OnInit {
       } else {
         const unitId = this.formUnitId()
         if (!unitId) return
-        await firstValueFrom(this.lessonService.create({ ...payload, unitId }))
+        await firstValueFrom(this.lessonService.create({ ...payload, type, unitId }))
         await this.loadUnit(unitId)
         this.bumpLessonsCount(unitId)
       }

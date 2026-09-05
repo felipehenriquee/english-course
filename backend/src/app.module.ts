@@ -11,6 +11,7 @@ import { UsersModule } from '@/features/users/users.module'
 import { CoursesModule } from '@/features/courses/courses.module'
 import { UnitsModule } from '@/features/units/units.module'
 import { LessonsModule } from '@/features/lessons/lessons.module'
+import { ExercisesModule } from '@/features/exercises/exercises.module'
 import { HealthModule } from '@/features/health/health.module'
 import { SeedModule } from '@/features/seed/seed.module'
 
@@ -44,6 +45,7 @@ import { SeedModule } from '@/features/seed/seed.module'
     CoursesModule,
     UnitsModule,
     LessonsModule,
+    ExercisesModule,
     HealthModule,
     SeedModule,
   ],
